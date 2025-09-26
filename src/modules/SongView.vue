@@ -13,7 +13,7 @@ import IconPause from '~icons/material-symbols/pause'
 </script>
 
 <template>
-  <div class="grid overflow-y-auto overflow-x-hidden bg-blue-900" :class="dark ? 'opacity-20' : ''">
+  <div class="grid overflow-y-auto overflow-x-hidden bg-gray-900" :class="dark ? 'opacity-20' : ''">
     <button
       @click="lyric = !lyric"
       class="min-h-[40vh] w-full bg-gray-950/40"
@@ -26,7 +26,7 @@ import IconPause from '~icons/material-symbols/pause'
           v-for="i in 66"
           :style="'width: ' + Math.random() * 20.2 + 'rem'"
           :key="i"
-          class="min-w-64 h-8 bg-white flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+          class="min-w-64 h-8 bg-white/20 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         ></div>
       </UContainer>
     </button>
