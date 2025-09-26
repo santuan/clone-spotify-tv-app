@@ -32,11 +32,12 @@ html {
   font-size: 18px;
 }
 
-body a,
-body button {
+a,
+button {
   border: 2px solid transparent;
 
   &:hover {
+    @apply outline-offset-4!;
     border-color: #fff;
   }
 }

@@ -9,7 +9,6 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "build-type": "run-p type-check \"build-only {@}\" --",
     "preview": "vite preview",
     "test:unit": "vitest",
     "type-check": "vue-tsc --build",

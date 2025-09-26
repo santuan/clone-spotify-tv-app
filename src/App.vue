@@ -27,7 +27,7 @@ const items = computed<NavigationMenuItem[]>(() => [
   },
 ])
 
-const spatialNav = useSpatialNavigation()
+useSpatialNavigation()
 import PhTelevisionSimpleFill from '~icons/ph/television-simple-fill'
 import { useMediaQuery } from '@vueuse/core'
 
@@ -57,7 +57,7 @@ const { guitarMode, isPlaying } = storeToRefs(store)
             <RouterLink
               to="/artist/album/song/name"
               v-else
-              class="w-64 h-10 flex justify-start gap-3 bg-gray-800 items-center text-sm"
+              class="w-64 h-10 flex justify-start overflow-hidden outline-offset-4 gap-3 bg-gray-800 items-center text-sm"
             >
               <div class="h-10 w-12 bg-primary"></div>
               <div class="w-full grid">
@@ -69,7 +69,7 @@ const { guitarMode, isPlaying } = storeToRefs(store)
 
           <div class="flex gap-12">
             <RouterLink
-              :to="item.to"
+              :to="`${item.to}`"
               class="flex items-center justify-center text-lg gap-2 outline-offset-8"
               v-for="item in items"
               :key="item.label"

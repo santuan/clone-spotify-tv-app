@@ -4,7 +4,6 @@ import { ref } from 'vue'
 const dark = ref(false)
 const lyric = ref(false)
 const guitar = ref(false)
-import LucideX from '~icons/lucide/x'
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
@@ -14,25 +13,24 @@ import IconPause from '~icons/material-symbols/pause'
 </script>
 
 <template>
-  <div class="grid overflow-y-auto overflow-x-hidden" :class="dark ? 'opacity-20' : ''">
+  <div class="grid overflow-y-auto overflow-x-hidden bg-blue-900" :class="dark ? 'opacity-20' : ''">
     <button
       @click="lyric = !lyric"
-      class="min-h-[40vh] w-full bg-gray-900"
-      :class="lyric ? 'h-[90vh]' : ''"
+      class="min-h-[40vh] w-full bg-gray-950/40"
+      :class="lyric ? 'h-[90vh]' : 'h-[40vh]'"
     >
       <UContainer
-        v-if="lyric"
         class="flex max-w-5xl mx-auto overflow-y-auto overflow-x-hidden max-h-[90vh] !gap-y-8 flex-wrap gap-3"
       >
         <div
           v-for="i in 66"
           :style="'width: ' + Math.random() * 20.2 + 'rem'"
           :key="i"
-          class="min-w-64 h-8 bg-gray-700 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+          class="min-w-64 h-8 bg-white flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         ></div>
       </UContainer>
     </button>
-    <div class="min-h-[60vh] max-h-[60vh] pt-6 pb-20 w-full">
+    <div class="min-h-[60vh] max-h-[60vh] bg-gray-950 pt-6 pb-20 w-full">
       <UContainer
         class="flex gap-6 items-center"
         :class="lyric ? 'fixed bottom-8  bg-gray-800/80 backdrop-blur-xs p-3 left-0 right-0' : ''"

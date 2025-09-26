@@ -9,7 +9,7 @@
       <div class="col-span-6" v-if="i !== 1">
         <div class="h-8 w-64 bg-gray-600"></div>
       </div>
-      <button v-for="i in 5" class="aspect-square bg-gray-500 mt-6"></button>
+      <button v-for="i in 5" :key="i" class="aspect-square bg-gray-500 mt-6"></button>
       <button class="aspect-square bg-gray-800 mt-6"></button>
     </UContainer>
   </div>
