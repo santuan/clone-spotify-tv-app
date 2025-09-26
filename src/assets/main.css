@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+:root {
+  --sb-track-color: transparent;
+  --sb-thumb-color: #fff;
+  --sb-size: 2px;
+}
+
+::-webkit-scrollbar {
+  width: var(--sb-size);
+}
+
+::-webkit-scrollbar-track {
+  background: var(--sb-track-color);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--sb-thumb-color);
+  border-radius: 3px;
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  body {
+    scrollbar-color: var(--sb-thumb-color) var(--sb-track-color);
+  }
+}
+
+html {
+  @apply font-mono;
+  font-size: 18px;
+}
+
+body a,
+body button {
+  border: 2px solid transparent;
+
+  &:hover {
+    border-color: #fff;
+  }
+}
+
+body,
+body div {
+  @apply scroll-smooth;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
