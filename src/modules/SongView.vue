@@ -43,9 +43,9 @@ import IconPause from '~icons/material-symbols/pause'
         ></button>
         <h1 class="text-4xl">Song</h1>
         <div v-if="!lyric" class="flex ml-auto justify-center gap-6 items-center">
-          <div
+          <button
             class="w-24 h-8 bg-gray-800 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
-          ></div>
+          ></button>
         </div>
       </UContainer>
       <UContainer v-if="!lyric" class="py-6 flex items-center gap-3">
@@ -62,10 +62,10 @@ import IconPause from '~icons/material-symbols/pause'
       </UContainer>
       <UContainer v-if="!lyric" class="flex justify-between items-center gap-4">
         <div class="flex gap-3">
-          <div class="size-8 bg-gray-800 rounded-full"></div>
-          <div class="size-8 bg-gray-800 rounded-full"></div>
-          <div class="size-8 bg-gray-800 rounded-full"></div>
-          <div class="size-8 bg-gray-800 rounded-full"></div>
+          <button class="size-8 bg-gray-800 rounded-full"></button>
+          <button class="size-8 bg-gray-800 rounded-full"></button>
+          <button class="size-8 bg-gray-800 rounded-full"></button>
+          <button class="size-8 bg-gray-800 rounded-full"></button>
         </div>
         <div class="flex gap-4">
           <UButton

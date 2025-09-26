@@ -43,91 +43,94 @@ const { guitarMode, isPlaying } = storeToRefs(store)
 <template>
   <UApp>
     <template v-if="isWidthSupported && isHeightSupported">
-      <UHeader
-        class="bg-transparent hover:opacity-100 opacity-70 duration-500 border-0 z-30 focus-within:opacity-100 top-0 left-0 right-0"
+      <div
+        class="bg-transparent hover:opacity-100 opacity-70 duration-500 border-0 z-30 focus-within:opacity-100 fixed top-0 left-0 right-0"
       >
-        <template #title>
-          <div v-if="!isPlaying" class="flex">
-            <LogosSpotify class="h-10 w-auto" />
-            TV
+        <div
+          class="max-w-(--ui-container) mx-auto w-full flex items-center relative justify-center h-16"
+        >
+          <div class="absolute left-7 top-3">
+            <RouterLink to="/" v-if="!isPlaying" class="flex outline-offset-4">
+              <LogosSpotify class="h-10 w-auto" />
+              TV
+            </RouterLink>
+            <RouterLink
+              to="/artist/album/song/name"
+              v-else
+              class="w-64 h-10 flex justify-start gap-3 bg-gray-800 items-center text-sm"
+            >
+              <div class="h-10 w-12 bg-primary"></div>
+              <div class="w-full grid">
+                <span>Nombre canción</span>
+                <span class="text-xs animate-pulse text-primary">Escuchando ahora</span>
+              </div>
+            </RouterLink>
           </div>
-          <RouterLink
-            to="/artist/album/song/name"
-            v-else
-            class="w-64 h-10 flex justify-start gap-3 bg-gray-800 items-center text-sm"
-          >
-            <div class="h-10 w-12 bg-primary"></div>
-            <div class="animate-pulse w-full">Escuchando ahora</div>
-          </RouterLink>
-        </template>
 
-        <div class="flex gap-12">
-          <RouterLink
-            :to="item.to"
-            class="flex items-center justify-center text-lg gap-2 outline-offset-8"
-            v-for="item in items"
-            :key="item.label"
-          >
-            <component :is="item.icon" class="size-5" />
-            {{ item.label }}
-          </RouterLink>
-        </div>
+          <div class="flex gap-12">
+            <RouterLink
+              :to="item.to"
+              class="flex items-center justify-center text-lg gap-2 outline-offset-8"
+              v-for="item in items"
+              :key="item.label"
+            >
+              <component :is="item.icon" class="size-5" />
+              {{ item.label }}
+            </RouterLink>
+          </div>
 
-        <template #right>
-          <div class="flex gap-3">
-            <USlideover>
-              <button
-                class="size-8 flex justify-center items-center rounded-full"
-                color="neutral"
-                variant="subtle"
-              >
-                <LucideSettings class="size-6" />
-              </button>
+          <div class="absolute right-7 top-4">
+            <div class="flex gap-3">
+              <USlideover>
+                <button
+                  class="size-8 flex justify-center items-center rounded-full outline-offset-4"
+                  color="neutral"
+                  variant="subtle"
+                >
+                  <LucideSettings class="size-6" />
+                </button>
 
-              <template #content>
-                <div class="p-3">
-                  <h3 class="mb-6 text-2xl">Configuraciones</h3>
-                  <USwitch
-                    v-model="guitarMode"
-                    size="xl"
-                    default-value
-                    label="Modo guitarra"
-                    description="Activa o desactiva el módulo según preferencias personales."
-                  />
-                </div>
-              </template>
-            </USlideover>
-            <USlideover>
-              <button
-                class="size-8 flex justify-center items-center rounded-full"
-                color="neutral"
-                variant="subtle"
-              >
-                <LucideUser class="size-6" />
-              </button>
-
-              <template #content>
-                <div class="p-3">
-                  <h3 class="mb-6 text-2xl">Usuario</h3>
-                  <div class="w-full px-1">
-                    <UUser
-                      name="Nombre Apellido"
-                      description="Plan premium"
-                      :avatar="{
-                        src: 'https://github.com/benjamincanac.png',
-                      }"
+                <template #content>
+                  <div class="p-3">
+                    <h3 class="mb-6 text-2xl">Configuraciones</h3>
+                    <USwitch
+                      v-model="guitarMode"
+                      size="xl"
+                      default-value
+                      label="Modo guitarra"
+                      description="Activa o desactiva el módulo según preferencias personales."
                     />
                   </div>
-                </div>
-              </template>
-            </USlideover>
-          </div>
-        </template>
+                </template>
+              </USlideover>
+              <USlideover>
+                <button
+                  class="size-8 flex justify-center items-center rounded-full outline-offset-4"
+                  color="neutral"
+                  variant="subtle"
+                >
+                  <LucideUser class="size-6" />
+                </button>
 
-        <template #body>
-          <UNavigationMenu :items="items" orientation="vertical" class="-mx-2.5" />
-        </template>
-      </UHeader>
+                <template #content>
+                  <div class="p-3">
+                    <h3 class="mb-6 text-2xl">Usuario</h3>
+                    <div class="w-full px-1">
+                      <UUser
+                        name="Nombre Apellido"
+                        description="Plan premium"
+                        :avatar="{
+                          src: 'https://github.com/benjamincanac.png',
+                        }"
+                      />
+                    </div>
+                  </div>
+                </template>
+              </USlideover>
+            </div>
+          </div>
+        </div>
+      </div>
       <main class="fixed inset-0 z-20 pt-16 min-h-screen bg-gray-950">
         <RouterView />
       </main>
