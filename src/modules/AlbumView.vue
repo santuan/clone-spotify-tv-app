@@ -3,14 +3,23 @@ import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
 const { guitarMode } = storeToRefs(store)
+import IconPlay from '~icons/material-symbols/play-arrow'
 </script>
 <template>
-  <UContainer class="grid grid-cols-5">
+  <UContainer class="grid grid-cols-5 pt-20 gap-20">
     <div class="col-span-2 pt-10">
-      <div class="bg-gray-700 size-96 mb-6"></div>
+      <div class="bg-gray-700 mx-auto size-64 mb-6"></div>
       <h1 class="text-2xl">Album</h1>
+      <div class="flex justify-end items-start mt-3 w-full">
+        <RouterLink
+          to="/artist/album/song/name"
+          class="size-12 flex justify-center items-center bg-primary rounded-full focus-visible:outline-offset-8"
+        >
+          <IconPlay class="size-9 text-gray-900" />
+        </RouterLink>
+      </div>
     </div>
-    <div class="col-span-3 overflow-y-auto overflow-x-hidden py-3 p-6 h-[80vh] w-full">
+    <div class="col-span-3 overflow-y-auto overflow-x-hidden py-3 p-6 h-[87vh] w-full">
       <div class="grid gap-6 mt-6">
         <RouterLink
           to="/artist/album/song/name"

@@ -37,14 +37,14 @@ const isHeightSupported = useMediaQuery('(min-height: 550px)')
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
-const { guitarMode, isPlaying } = storeToRefs(store)
+const { guitarMode, isPlaying, guitar } = storeToRefs(store)
 </script>
 
 <template>
   <UApp>
     <template v-if="isWidthSupported && isHeightSupported">
       <div
-        class="bg-transparent hover:opacity-100 opacity-70 duration-500 border-0 z-30 focus-within:opacity-100 fixed top-0 left-0 right-0"
+        class="bg-black hover:opacity-100 opacity-70 duration-500 border-0 z-30 focus-within:opacity-100 fixed top-0 left-0 right-0"
       >
         <div
           class="max-w-(--ui-container) mx-auto w-full flex items-center relative justify-center h-16"
@@ -81,7 +81,7 @@ const { guitarMode, isPlaying } = storeToRefs(store)
 
           <div class="absolute right-7 top-4">
             <div class="flex gap-3">
-              <USlideover>
+              <USlideover title="Configuraciones">
                 <button
                   class="size-8 flex justify-center items-center rounded-full outline-offset-4"
                   color="neutral"
@@ -90,20 +90,23 @@ const { guitarMode, isPlaying } = storeToRefs(store)
                   <LucideSettings class="size-6" />
                 </button>
 
-                <template #content>
-                  <div class="p-3">
-                    <h3 class="mb-6 text-2xl">Configuraciones</h3>
-                    <USwitch
-                      v-model="guitarMode"
-                      size="xl"
-                      default-value
-                      label="Modo guitarra"
-                      description="Activa o desactiva el módulo según preferencias personales."
-                    />
+                <template #body>
+                  <div class="grid mb-6 gap-3">
+                    <div class="w-full bg-gray-800 h-20"></div>
+                  </div>
+                  <USwitch
+                    v-model="guitarMode"
+                    size="xl"
+                    default-value
+                    label="Modo guitarra"
+                    description="Activa o desactiva el módulo según preferencias personales."
+                  />
+                  <div class="grid mt-6 gap-3">
+                    <div :key="i" v-for="i in 5" class="w-full bg-gray-800 h-20"></div>
                   </div>
                 </template>
               </USlideover>
-              <USlideover>
+              <USlideover title="Usuario">
                 <button
                   class="size-8 flex justify-center items-center rounded-full outline-offset-4"
                   color="neutral"
@@ -112,18 +115,18 @@ const { guitarMode, isPlaying } = storeToRefs(store)
                   <LucideUser class="size-6" />
                 </button>
 
-                <template #content>
-                  <div class="p-3">
-                    <h3 class="mb-6 text-2xl">Usuario</h3>
-                    <div class="w-full px-1">
-                      <UUser
-                        name="Nombre Apellido"
-                        description="Plan premium"
-                        :avatar="{
-                          src: 'https://github.com/benjamincanac.png',
-                        }"
-                      />
-                    </div>
+                <template #body>
+                  <div class="w-full px-1">
+                    <UUser
+                      name="Nombre Apellido"
+                      description="Plan premium"
+                      :avatar="{
+                        src: 'https://github.com/benjamincanac.png',
+                      }"
+                    />
+                  </div>
+                  <div class="grid gap-3 mt-12">
+                    <div :key="i" v-for="i in 9" class="w-full bg-gray-800 h-12"></div>
                   </div>
                 </template>
               </USlideover>
@@ -131,9 +134,23 @@ const { guitarMode, isPlaying } = storeToRefs(store)
           </div>
         </div>
       </div>
-      <main class="fixed inset-0 z-20 pt-16 min-h-screen bg-gray-950">
+      <main class="z-20 min-h-screen max-h-[85vh] overflow-y-auto bg-gray-950">
         <RouterView />
       </main>
+      <UModal
+        v-model:open="guitar"
+        :transition="false"
+        fullscreen
+        title="Modo Guitarra para una sola canción"
+      >
+        <template #body>
+          <div class="flex justify-center items-center h-full text-4xl text-center leading-relaxed">
+            Canción & Tablatura
+            <br />
+            Videotutorial del artista?
+          </div>
+        </template>
+      </UModal>
     </template>
     <template v-else>
       <div class="h-screen w-full flex justify-center items-center flex-col gap-2">

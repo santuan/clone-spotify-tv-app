@@ -56,3 +56,8 @@ body div {
 .fade-leave-to {
   opacity: 0;
 }
+
+body:has(.dark-mode-active) {
+  opacity: 0.2;
+  @apply bg-blend-multiply;
+}

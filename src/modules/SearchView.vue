@@ -1,7 +1,7 @@
 <script setup lang="ts"></script>
 
 <template>
-  <UContainer class="py-6">
+  <UContainer class="pb-6 pt-32">
     <UInput
       icon="i-lucide-search"
       size="xl"
@@ -13,7 +13,7 @@
     <div class="w-64 h-8 mt-6 bg-gray-600 block"></div>
   </UContainer>
   <UContainer
-    class="grid grid-cols-4 gap-3 overflow-y-auto overflow-x-hidden max-h-[80vh] font-mono py-3"
+    class="grid grid-cols-4 gap-3 overflow-y-auto overflow-x-hidden max-h-[60vh] font-mono p-3"
   >
     <RouterLink
       to="/search"

@@ -37,11 +37,18 @@ const resetShowSelected = () => {
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
-const { guitarMode } = storeToRefs(store)
+const { guitarMode, guitar } = storeToRefs(store)
+
+const isShowing = ref('Mostrar todos')
+
+function changeShowing(i: string) {
+  console.log(i)
+  isShowing.value = i
+}
 </script>
 
 <template>
-  <div class="h-[35vh] py-6 flex justify-center flex-col items-start bg-gray-700">
+  <div class="h-[35vh] pt-14 flex justify-center flex-col items-start bg-gray-700">
     <UContainer>
       <h1 class="text-4xl text-pretty tracking-tight font-bold text-highlighted">
         {{ ShowSelected }}
@@ -56,7 +63,8 @@ const { guitarMode } = storeToRefs(store)
       <div class="flex gap-3 w-full">
         <UButton
           size="lg"
-          color="neutral"
+          :color="isShowing === 'Mostrar todos' ? 'primary' : 'neutral'"
+          @click="changeShowing('Mostrar todos')"
           @focus="updateShowSelected(`Mi coleccion`)"
           @blur="resetShowSelected"
           class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
@@ -64,7 +72,8 @@ const { guitarMode } = storeToRefs(store)
         </UButton>
         <UButton
           size="lg"
-          color="neutral"
+          :color="isShowing === 'musica' ? 'primary' : 'neutral'"
+          @click="changeShowing('musica')"
           @focus="updateShowSelected(`Música`)"
           @blur="resetShowSelected"
           class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
@@ -72,7 +81,8 @@ const { guitarMode } = storeToRefs(store)
         >
         <UButton
           size="lg"
-          color="neutral"
+          :color="isShowing === 'podcasts' ? 'primary' : 'neutral'"
+          @click="changeShowing('podcasts')"
           @focus="updateShowSelected(`Podcasts`)"
           @blur="resetShowSelected"
           class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
@@ -81,11 +91,13 @@ const { guitarMode } = storeToRefs(store)
         <UButton
           size="lg"
           v-if="guitarMode"
+          color="neutral"
           to="/guitarmode"
+          @click="changeShowing('modo-guitarra')"
           @focus="updateShowSelected(`Modo guitarra`)"
           @blur="resetShowSelected"
           class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
-          >Modo guitarra
+          >Ir a home de modo guitarra
         </UButton>
       </div>
       <div class="grid grid-cols-4 gap-3 w-full">
@@ -93,12 +105,14 @@ const { guitarMode } = storeToRefs(store)
           to="/artist/name"
           v-for="card in 8"
           :key="card"
-          @focus="updateShowSelected(`Artista ${card}`)"
+          @focus="updateShowSelected(`${isShowing} ${card}`)"
           @blur="resetShowSelected"
           class="h-16 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:scale-105 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none ring"
         >
           <div class="h-16 text-xs min-w-16 bg-gray-600 flex justify-center items-center font-mono">
-            Artista
+            <template v-if="isShowing === 'Mostrar todos'"> Artista </template>
+            <template v-else-if="isShowing === 'musica'"> musica </template>
+            <template v-else-if="isShowing === 'podcasts'"> Podcasts </template>
           </div>
           <div class="h-16 px-3 flex justify-start items-center w-full">
             <div class="h-6 w-20 bg-gray-600" />
@@ -107,7 +121,10 @@ const { guitarMode } = storeToRefs(store)
       </div>
     </UContainer>
 
-    <UContainer class="gap-3 w-full flex snap-center flex-col justify-start pb-20 items-start">
+    <UContainer
+      v-if="isShowing === 'Mostrar todos'"
+      class="gap-3 w-full flex snap-center flex-col justify-start pb-20 items-start"
+    >
       <p class="text-2xl">Recomendados</p>
       <div class="grid grid-cols-4 gap-3 w-full">
         <RouterLink
@@ -125,12 +142,15 @@ const { guitarMode } = storeToRefs(store)
       </div>
     </UContainer>
 
-    <UContainer class="gap-3 w-full flex flex-col snap-center justify-start pb-20 items-start">
+    <UContainer
+      v-if="isShowing === 'musica'"
+      class="gap-3 w-full flex flex-col snap-center justify-start pb-20 items-start"
+    >
       <p class="text-2xl w-64">Artistas</p>
-      <div class="grid grid-cols-8 pt-2 w-full gap-3">
+      <div class="grid grid-cols-8 w-full gap-3">
         <RouterLink
           to="/artist/name"
-          v-for="card in 8"
+          v-for="card in 24"
           :key="card"
           @focus="updateShowSelected(`Artista Popular ${card}`)"
           @blur="resetShowSelected"
@@ -144,29 +164,76 @@ const { guitarMode } = storeToRefs(store)
     </UContainer>
 
     <UContainer
+      v-if="isShowing === 'Mostrar todos'"
       class="min-h-[80vh] gap-3 w-full flex flex-col snap-center justify-start pt-6 items-start"
     >
       <p class="text-2xl w-64">Modo guitarra</p>
       <div class="grid grid-cols-4 pt-2 w-full gap-3">
-        <RouterLink
+        <!-- <RouterLink
           to="/artist/name"
           v-for="card in 4"
           :key="card"
-          @focus="updateShowSelected(`Videotutorial guitarra destacado ${card}`)"
+          @focus="updateShowSelected(`Videotutorial guitarra  ${card}`)"
           @blur="resetShowSelected"
           class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
         >
           <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            {{ card }}
+            Videotutorial guitarra {{ card }}
           </div>
-        </RouterLink>
+        </RouterLink> -->
+        <button
+          @click="guitar = true"
+          v-for="card in 4"
+          :key="card"
+          @focus="updateShowSelected(`Videotutorial guitarra  ${card}`)"
+          @blur="resetShowSelected"
+          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
+        >
+          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
+            Videotutorial guitarra {{ card }}
+          </div>
+        </button>
       </div>
-      <div class="grid grid-cols-8 w-full py-16 gap-3">
-        <RouterLink
+      <p class="text-2xl w-64 pt-2">Modo guitarra</p>
+      <div class="grid grid-cols-8 w-full pb-40 gap-3">
+        <!-- <RouterLink
           to="/artist/name"
           v-for="card in 8"
           :key="card"
           @focus="updateShowSelected(`Canción con acordes ${card}`)"
+          @blur="resetShowSelected"
+          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
+        >
+          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
+            acordes {{ card }}
+          </div>
+        </RouterLink> -->
+        <button
+          v-for="card in 8"
+          :key="card"
+          @click="guitar = true"
+          @focus="updateShowSelected(`Canción con acordes ${card}`)"
+          @blur="resetShowSelected"
+          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
+        >
+          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
+            acordes {{ card }}
+          </div>
+        </button>
+      </div>
+    </UContainer>
+
+    <UContainer
+      v-if="isShowing === 'podcasts'"
+      class="min-h-[80vh] gap-3 w-full flex flex-col snap-center justify-start items-start"
+    >
+      <p class="text-2xl w-64">Podcasts</p>
+      <div class="grid grid-cols-8 w-full gap-3">
+        <RouterLink
+          to="/artist/name"
+          v-for="card in 8"
+          :key="card"
+          @focus="updateShowSelected(`Mas podcasts ${card}`)"
           @blur="resetShowSelected"
           class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
         >
