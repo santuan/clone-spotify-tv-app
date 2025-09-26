@@ -5,7 +5,7 @@ export function useSpatialNavigation(options = {}) {
   const currentFocusedElement = ref(null)
 
   const defaultOptions = {
-    selector: 'a, button, .focusable,input, button.focusable, input.focusable',
+    selector: 'a, button, .focusable, input, button.focusable, input.focusable',
     straightOnly: false,
     straightOverlapThreshold: 0.5,
     rememberSource: false,

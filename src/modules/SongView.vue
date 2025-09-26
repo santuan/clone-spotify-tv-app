@@ -1,16 +1,17 @@
 <script setup lang="ts">
 import { ref, onUnmounted, watch, computed } from 'vue'
-const progress = ref(50)
+
+const progress = ref(0)
 const dark = ref(false)
-const lyric = ref(false)
+
 let progressInterval: NodeJS.Timeout | null = null
 
 import { useIdle } from '@vueuse/core'
 
-const { idle } = useIdle(3000)
+const { idle } = useIdle(5000)
 
 const isIdle = computed(() => {
-  if (isPlaying.value === false) {
+  if (is_playing.value === false) {
     return false
   }
   if (idle.value) {
@@ -21,7 +22,8 @@ const isIdle = computed(() => {
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
-const { isPlaying, guitar } = storeToRefs(store)
+const { is_playing, song_active_screen, guitar_mode, show_chords_videotutorial } =
+  storeToRefs(store)
 import IconPlay from '~icons/material-symbols/play-arrow'
 import IconPause from '~icons/material-symbols/pause'
 
@@ -30,13 +32,10 @@ const startProgress = () => {
   if (progressInterval) clearInterval(progressInterval)
 
   progressInterval = setInterval(() => {
-    progress.value += 0.5 // Increment by 0.5% every 500ms (simulates a ~3.3 minute song)
+    progress.value += 0.15
 
-    // Reset to 0 when reaching 100%
     if (progress.value >= 100) {
       progress.value = 0
-      // Optionally pause when song ends
-      // isPlaying.value = false
     }
   }, 500)
 }
@@ -50,7 +49,7 @@ const stopProgress = () => {
 
 // Watch for play/pause changes
 watch(
-  isPlaying,
+  is_playing,
   (newValue) => {
     if (newValue) {
       startProgress()
@@ -77,12 +76,12 @@ const handleProgressChange = (value: number) => {
     class="grid overflow-y-auto overflow-x-hidden bg-gray-900"
     :class="dark ? 'dark-mode-active' : ''"
   >
-    <button
-      class="w-full bg-emerald-950/40"
-      :class="isIdle ? 'h-[99vh] fixed inset-0' : 'h-[50vh]'"
+    <div
+      class="w-full dark_dim bg-emerald-950/40"
+      :class="isIdle ? 'is_idle h-[99vh] fixed inset-0' : 'h-[50vh]'"
     >
       <UContainer
-        v-if="lyric"
+        v-if="song_active_screen === 'lyric'"
         class="flex max-w-5xl mx-auto overflow-y-auto overflow-x-hidden h-screen max-h-[60vh] !gap-y-8 flex-wrap gap-3"
       >
         <div
@@ -92,16 +91,25 @@ const handleProgressChange = (value: number) => {
           class="min-w-32 h-8 bg-white/20 inline-block"
         ></div>
       </UContainer>
-    </button>
-    <div class="bg-gray-950 pt-6 pb-12 w-full">
       <UContainer
-        class="flex gap-6 items-center"
-        :class="isIdle ? 'fixed bottom-8 bg-gray-950/80 backdrop-blur-xs p-3 left-0 right-0' : ''"
+        v-if="song_active_screen === 'guitar'"
+        class="max-w-5xl mx-auto flex-col overflow-y-auto overflow-x-hidden h-screen flex justify-center items-center max-h-[60vh] !gap-y-8 flex-wrap gap-3"
+      >
+        <h2>Modo guitarra</h2>
+        <span>{{ show_chords_videotutorial }}</span>
+      </UContainer>
+    </div>
+    <div class="bg-gradient-to-b to-gray-950 from-gray-950/50 pt-6 pb-12 w-full">
+      <UContainer
+        class="flex gap-6 items-center duration-1000"
+        :class="
+          isIdle ? 'absolute bottom-8 bg-gray-950/80 backdrop-blur-xs p-3 left-0 right-0' : ''
+        "
       >
         <button
-          class="size-24 pt-24 bg-gray-600 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+          class="size-24 dark_dim pt-24 bg-gray-600 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         ></button>
-        <h1 class="text-4xl">Nombre canción</h1>
+        <h1 class="text-4xl">Nombre canción {{ song_active_screen }}</h1>
         <div class="flex ml-auto justify-center gap-6 items-center">
           <UButton
             color="neutral"
@@ -114,12 +122,12 @@ const handleProgressChange = (value: number) => {
           >
         </div>
       </UContainer>
-      <UContainer v-if="!isIdle" class="py-6 flex items-center gap-3">
+      <UContainer v-if="!isIdle" class="py-6 dark_dim flex items-center gap-3">
         <button
-          @click="isPlaying = !isPlaying"
+          @click="is_playing = !is_playing"
           class="size-12 flex justify-center items-center bg-primary rounded-full focus-visible:outline-offset-8"
         >
-          <IconPause v-if="isPlaying" class="size-9 text-gray-900" />
+          <IconPause v-if="is_playing" class="size-9 text-gray-900" />
           <IconPlay v-else class="size-9 text-gray-900" />
         </button>
         <USlider
@@ -131,8 +139,8 @@ const handleProgressChange = (value: number) => {
           <div class="h-6 w-96 bg-white" />
         </div> -->
       </UContainer>
-      <UContainer v-if="!isIdle" class="flex justify-between items-center gap-4">
-        <div class="flex gap-3">
+      <UContainer v-if="!isIdle" class="flex dark_dim justify-between items-center gap-4">
+        <div class="flex gap-3" v-if="song_active_screen !== 'guitar'">
           <button
             class="w-12 h-10 bg-gray-600 rounded-full focus-visible:outline-offset-8"
           ></button>
@@ -146,19 +154,56 @@ const handleProgressChange = (value: number) => {
             class="w-12 h-10 bg-gray-600 rounded-full focus-visible:outline-offset-8"
           ></button>
         </div>
+        <div v-else class="flex gap-3">
+          <UButton
+            v-if="guitar_mode"
+            @click="
+              show_chords_videotutorial === 'videotutorial'
+                ? (show_chords_videotutorial = ' ')
+                : (show_chords_videotutorial = 'videotutorial')
+            "
+            color="neutral"
+            :variant="show_chords_videotutorial === 'videotutorial' ? 'solid' : 'outline'"
+            size="xl"
+            class="rounded-full focus-visible:scale-110"
+            >Videotutorial</UButton
+          >
+          <UButton
+            v-if="guitar_mode"
+            @click="
+              show_chords_videotutorial === 'acordes'
+                ? (show_chords_videotutorial = ' ')
+                : (show_chords_videotutorial = 'acordes')
+            "
+            color="neutral"
+            :variant="show_chords_videotutorial === 'acordes' ? 'solid' : 'outline'"
+            size="xl"
+            class="rounded-full focus-visible:scale-110"
+            >Acordes</UButton
+          >
+        </div>
         <div class="flex gap-4">
           <UButton
-            @click="guitar = true"
+            v-if="guitar_mode"
+            @click="
+              song_active_screen === 'guitar'
+                ? (song_active_screen = ' ')
+                : (song_active_screen = 'guitar')
+            "
             color="neutral"
-            :variant="guitar ? 'solid' : 'outline'"
+            :variant="song_active_screen === 'guitar' ? 'solid' : 'outline'"
             size="xl"
             class="rounded-full focus-visible:scale-110"
             >Modo guitarra</UButton
           >
           <UButton
-            @click="lyric = !lyric"
+            @click="
+              song_active_screen === 'lyric'
+                ? (song_active_screen = ' ')
+                : (song_active_screen = 'lyric')
+            "
             color="neutral"
-            :variant="lyric ? 'solid' : 'outline'"
+            :variant="song_active_screen === 'lyric' ? 'solid' : 'outline'"
             size="xl"
             class="rounded-full focus-visible:scale-110"
             >Letras
@@ -195,8 +240,11 @@ const handleProgressChange = (value: number) => {
           >
         </div>
       </UContainer>
-      <UContainer v-if="!isIdle">
-        <div class="grid grid-cols-4 gap-6 pb-6 pt-10 w-full">
+      <UContainer class="dark_dim" v-if="!isIdle">
+        <div
+          v-show="song_active_screen !== 'guitar'"
+          class="grid grid-cols-4 gap-6 pb-6 pt-10 w-full"
+        >
           <RouterLink
             to="/artist/album/name"
             v-for="card in 3"
@@ -210,7 +258,7 @@ const handleProgressChange = (value: number) => {
             </div>
           </RouterLink>
         </div>
-        <div class="grid grid-cols-2 gap-6 py-6 w-full">
+        <div v-show="song_active_screen !== 'guitar'" class="grid grid-cols-2 gap-6 py-6 w-full">
           <RouterLink
             to="/artist/album/name"
             v-for="card in 1"

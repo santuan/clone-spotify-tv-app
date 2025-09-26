@@ -37,13 +37,29 @@ const resetShowSelected = () => {
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
-const { guitarMode, guitar } = storeToRefs(store)
+const { guitar_mode, song_active_screen, show_chords_videotutorial } = storeToRefs(store)
 
 const isShowing = ref('Mostrar todos')
 
 function changeShowing(i: string) {
   console.log(i)
   isShowing.value = i
+}
+
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
+
+function pushWithQueryVideo() {
+  song_active_screen.value = 'guitar'
+  show_chords_videotutorial.value = 'videotutorial'
+  router.push('/artist/album/song/name')
+}
+
+function pushWithQueryChords() {
+  song_active_screen.value = 'guitar'
+  show_chords_videotutorial.value = 'acordes'
+  router.push('/artist/album/song/name')
 }
 </script>
 
@@ -90,7 +106,7 @@ function changeShowing(i: string) {
         >
         <UButton
           size="lg"
-          v-if="guitarMode"
+          v-if="guitar_mode"
           color="neutral"
           to="/guitarmode"
           @click="changeShowing('modo-guitarra')"
@@ -169,20 +185,8 @@ function changeShowing(i: string) {
     >
       <p class="text-2xl w-64">Modo guitarra</p>
       <div class="grid grid-cols-4 pt-2 w-full gap-3">
-        <!-- <RouterLink
-          to="/artist/name"
-          v-for="card in 4"
-          :key="card"
-          @focus="updateShowSelected(`Videotutorial guitarra  ${card}`)"
-          @blur="resetShowSelected"
-          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
-        >
-          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            Videotutorial guitarra {{ card }}
-          </div>
-        </RouterLink> -->
         <button
-          @click="guitar = true"
+          @click="pushWithQueryVideo"
           v-for="card in 4"
           :key="card"
           @focus="updateShowSelected(`Videotutorial guitarra  ${card}`)"
@@ -196,22 +200,10 @@ function changeShowing(i: string) {
       </div>
       <p class="text-2xl w-64 pt-2">Modo guitarra</p>
       <div class="grid grid-cols-8 w-full pb-40 gap-3">
-        <!-- <RouterLink
-          to="/artist/name"
-          v-for="card in 8"
-          :key="card"
-          @focus="updateShowSelected(`Canción con acordes ${card}`)"
-          @blur="resetShowSelected"
-          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
-        >
-          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            acordes {{ card }}
-          </div>
-        </RouterLink> -->
         <button
           v-for="card in 8"
           :key="card"
-          @click="guitar = true"
+          @click="pushWithQueryChords"
           @focus="updateShowSelected(`Canción con acordes ${card}`)"
           @blur="resetShowSelected"
           class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"

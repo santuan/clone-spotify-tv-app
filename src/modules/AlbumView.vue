@@ -2,7 +2,7 @@
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
-const { guitarMode } = storeToRefs(store)
+const { guitar_mode } = storeToRefs(store)
 import IconPlay from '~icons/material-symbols/play-arrow'
 </script>
 <template>
@@ -42,7 +42,7 @@ import IconPlay from '~icons/material-symbols/play-arrow'
                 class="w-4 h-4 text-xs bg-gray-400 flex justify-center items-center font-bold text-gray-800"
                 >E</span
               >
-              <template v-if="guitarMode">
+              <template v-if="guitar_mode">
                 <span
                   v-if="card === 2 || card === 3 || card === 5"
                   class="w-4 h-4 text-xs bg-primary flex justify-center items-center font-bold text-gray-800"

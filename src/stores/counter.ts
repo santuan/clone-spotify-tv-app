@@ -2,14 +2,15 @@ import { ref } from 'vue'
 import { defineStore } from 'pinia'
 
 export const useCounterStore = defineStore('counter', () => {
-  const count = ref(0)
-  const guitarMode = ref(true)
+  const guitar_mode = ref(true)
   const guitar = ref(false)
-  const isPlaying = ref(false)
-  // const doubleCount = computed(() => count.value * 2)
+  const is_playing = ref(false)
+  const song_active_screen = ref()
+  const show_chords_videotutorial = ref("")
+
   function toggleGuitar() {
-    guitarMode.value = !guitarMode.value
+    guitar_mode.value = !guitar_mode.value
   }
 
-  return { count, guitarMode, toggleGuitar, isPlaying, guitar }
+  return { guitar_mode, toggleGuitar, is_playing, guitar, song_active_screen, show_chords_videotutorial }
 })

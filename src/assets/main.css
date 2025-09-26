@@ -3,7 +3,7 @@
 
 :root {
   --sb-track-color: transparent;
-  --sb-thumb-color: #fff;
+  --sb-thumb-color: transparent;
   --sb-size: 2px;
 }
 
@@ -58,6 +58,20 @@ body div {
 }
 
 body:has(.dark-mode-active) {
-  opacity: 0.2;
-  @apply bg-blend-multiply;
+  /* opacity: 0.15; */
+
+  .main_header,
+  .dark_dim {
+    opacity: 0.15;
+
+    &:focus-within {
+      opacity: 1 !important;
+    }
+  }
+
+  @apply bg-blend-multiply bg-black;
+}
+
+body:has(.is_idle) .main_header {
+  display: none;
 }

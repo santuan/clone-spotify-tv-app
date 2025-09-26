@@ -37,20 +37,45 @@ const isHeightSupported = useMediaQuery('(min-height: 550px)')
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
-const { guitarMode, isPlaying, guitar } = storeToRefs(store)
+const { guitar_mode, is_playing } = storeToRefs(store)
+
+// const toaster = { position: 'top-right', duration: 10000 }
+// const toast = useToast()
+// function showToast() {
+//   toast.add({
+//     title: 'Modo guitarra',
+//     description: 'Videotutoriales y acordes de guitarra de tus temas favoritos',
+//     actions: [
+//       {
+//         label: 'Activar',
+//         color: 'primary',
+//         variant: 'outline',
+//         onClick: (e) => {
+//           e?.stopPropagation()
+//           guitar_mode.value = true
+//         },
+//       },
+//     ],
+//   })
+// }
+
+// onMounted(() => {
+//   setTimeout(showToast, 5000)
+// :toaster="toaster"
+// })
 </script>
 
 <template>
   <UApp>
     <template v-if="isWidthSupported && isHeightSupported">
       <div
-        class="bg-black hover:opacity-100 opacity-70 duration-500 border-0 z-30 focus-within:opacity-100 fixed top-0 left-0 right-0"
+        class="bg-black main_header hover:opacity-100 opacity-70 duration-500 border-0 z-30 focus-within:opacity-100 fixed top-0 left-0 right-0"
       >
         <div
           class="max-w-(--ui-container) mx-auto w-full flex items-center relative justify-center h-16"
         >
           <div class="absolute left-7 top-3">
-            <RouterLink to="/" v-if="!isPlaying" class="flex outline-offset-4">
+            <RouterLink to="/" v-if="!is_playing" class="flex outline-offset-4">
               <LogosSpotify class="h-10 w-auto" />
               TV
             </RouterLink>
@@ -66,6 +91,7 @@ const { guitarMode, isPlaying, guitar } = storeToRefs(store)
               </div>
             </RouterLink>
           </div>
+          <!-- <UButton label="Show toast" color="neutral" variant="outline" @click="showToast" /> -->
 
           <div class="flex gap-12">
             <RouterLink
@@ -95,7 +121,7 @@ const { guitarMode, isPlaying, guitar } = storeToRefs(store)
                     <div class="w-full bg-gray-800 h-20"></div>
                   </div>
                   <USwitch
-                    v-model="guitarMode"
+                    v-model="guitar_mode"
                     size="xl"
                     default-value
                     label="Modo guitarra"
@@ -121,7 +147,7 @@ const { guitarMode, isPlaying, guitar } = storeToRefs(store)
                       name="Nombre Apellido"
                       description="Plan premium"
                       :avatar="{
-                        src: 'https://github.com/benjamincanac.png',
+                        src: 'https://avatars.githubusercontent.com/u/4934532?v=4&size=64',
                       }"
                     />
                   </div>
@@ -137,7 +163,7 @@ const { guitarMode, isPlaying, guitar } = storeToRefs(store)
       <main class="z-20 min-h-screen max-h-[85vh] overflow-y-auto bg-gray-950">
         <RouterView />
       </main>
-      <UModal
+      <!-- <UModal
         v-model:open="guitar"
         :transition="false"
         fullscreen
@@ -150,7 +176,7 @@ const { guitarMode, isPlaying, guitar } = storeToRefs(store)
             Videotutorial del artista?
           </div>
         </template>
-      </UModal>
+      </UModal> -->
     </template>
     <template v-else>
       <div class="h-screen w-full flex justify-center items-center flex-col gap-2">
