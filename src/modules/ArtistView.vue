@@ -1,3 +1,9 @@
+<script setup lang="ts">
+import { useCounterStore } from '@/stores/counter'
+import { storeToRefs } from 'pinia'
+const store = useCounterStore()
+const { guitarMode } = storeToRefs(store)
+</script>
 <template>
   <UContainer class="grid grid-cols-5 gap-12">
     <div class="col-span-2 pt-96">
@@ -26,7 +32,8 @@
           >Destacados</UButton
         >
         <UButton
-          to="/guitarmode"
+          to="/artist/guitarmode"
+          v-if="guitarMode"
           color="primary"
           size="xl"
           class="rounded-full focus-visible:scale-110"

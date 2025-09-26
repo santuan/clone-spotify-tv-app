@@ -4,6 +4,13 @@ import { ref } from 'vue'
 const dark = ref(false)
 const lyric = ref(false)
 const guitar = ref(false)
+import LucideX from '~icons/lucide/x'
+import { useCounterStore } from '@/stores/counter'
+import { storeToRefs } from 'pinia'
+const store = useCounterStore()
+const { guitarMode, isPlaying } = storeToRefs(store)
+import IconPlay from '~icons/material-symbols/play-arrow'
+import IconPause from '~icons/material-symbols/pause'
 </script>
 
 <template>
@@ -15,24 +22,24 @@ const guitar = ref(false)
     >
       <UContainer
         v-if="lyric"
-        class="flex max-w-5xl mx-auto overflow-y-auto overflow-x-hidden max-h-[40vh] !gap-y-24 flex-wrap gap-3"
+        class="flex max-w-5xl mx-auto overflow-y-auto overflow-x-hidden max-h-[90vh] !gap-y-8 flex-wrap gap-3"
       >
         <div
-          v-for="i in 8"
-          :style="'width: ' + Math.random() * 80.2 + 'rem'"
+          v-for="i in 66"
+          :style="'width: ' + Math.random() * 20.2 + 'rem'"
           :key="i"
-          class="min-w-64 h-8 bg-gray-300 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+          class="min-w-64 h-8 bg-gray-700 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         ></div>
       </UContainer>
     </button>
     <div class="min-h-[60vh] max-h-[60vh] pt-6 pb-20 w-full">
       <UContainer
         class="flex gap-6 items-center"
-        :class="lyric ? 'fixed bottom-8 left-0 right-0' : ''"
+        :class="lyric ? 'fixed bottom-8  bg-gray-800/80 backdrop-blur-xs p-3 left-0 right-0' : ''"
       >
         <button
           @click="lyric = !lyric"
-          class="size-24 pt-24 bg-gray-800 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+          class="size-24 pt-24 bg-gray-600 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         ></button>
         <h1 class="text-4xl">Song</h1>
         <div v-if="!lyric" class="flex ml-auto justify-center gap-6 items-center">
@@ -42,9 +49,15 @@ const guitar = ref(false)
         </div>
       </UContainer>
       <UContainer v-if="!lyric" class="py-6 flex items-center gap-3">
-        <div class="size-12 bg-primary rounded-full"></div>
+        <button
+          @click="isPlaying = !isPlaying"
+          class="size-12 flex justify-center items-center bg-primary rounded-full"
+        >
+          <IconPause v-if="isPlaying" class="size-9 text-gray-900" />
+          <IconPlay v-else class="size-9 text-gray-900" />
+        </button>
         <div class="h-3 w-full bg-gray-500 rounded-full overflow-hidden">
-          <button class="h-6 w-96 bg-white" />
+          <div class="h-6 w-96 bg-white" />
         </div>
       </UContainer>
       <UContainer v-if="!lyric" class="flex justify-between items-center gap-4">
@@ -72,13 +85,26 @@ const guitar = ref(false)
             class="rounded-full focus-visible:scale-110"
             >Dark Mode</UButton
           >
-          <UButton
-            @click="guitar = !guitar"
-            color="primary"
-            size="xl"
-            class="rounded-full focus-visible:scale-110"
-            >Modo Guitarra</UButton
+
+          <UModal
+            v-model="guitar"
+            :transition="false"
+            fullscreen
+            title="Modo Guitarra para una sola canción"
           >
+            <UButton
+              v-if="guitarMode"
+              color="primary"
+              size="xl"
+              class="rounded-full focus-visible:scale-110"
+              >Modo Guitarra</UButton
+            >
+            <template #body>
+              <div class="flex justify-center items-center h-full text-4xl">
+                Canción & Tablatura
+              </div>
+            </template>
+          </UModal>
         </div>
       </UContainer>
       <UContainer v-if="!lyric">
@@ -111,14 +137,16 @@ const guitar = ref(false)
         </div>
       </UContainer>
     </div>
-    <Teleport to="body">
+
+    <!-- <Teleport to="body">
       <div
         v-if="guitar"
-        class="fixed inset-0 z-[51] bg-black flex justify-center items-center text-6xl flex-col gap-3"
+        class="fixed inset-0 z-[51] bg-black flex justify-center items-center text-4xl flex-col gap-3"
       >
-        Modo Guitarra
-        <UButton @click="guitar = false"> Cerrar </UButton>
+        <button class="fixed right-0 m-6 top-0" @click="guitar = false">
+          <LucideX class="size-8" />
+        </button>
       </div>
-    </Teleport>
+    </Teleport> -->
   </div>
 </template>

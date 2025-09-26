@@ -7,6 +7,8 @@ import { useSpatialNavigation } from '@/composable/useNav'
 import LucideSearch from '~icons/lucide/search'
 import LucideHouse from '~icons/lucide/house'
 import LucideLibrary from '~icons/lucide/library'
+import LucideSettings from '~icons/lucide/settings'
+import LucideUser from '~icons/lucide/user'
 const items = computed<NavigationMenuItem[]>(() => [
   {
     label: 'Inicio',
@@ -31,6 +33,11 @@ import { useMediaQuery } from '@vueuse/core'
 
 const isWidthSupported = useMediaQuery('(min-width: 1023px)')
 const isHeightSupported = useMediaQuery('(min-height: 550px)')
+
+import { useCounterStore } from '@/stores/counter'
+import { storeToRefs } from 'pinia'
+const store = useCounterStore()
+const { guitarMode, isPlaying } = storeToRefs(store)
 </script>
 
 <template>
@@ -40,8 +47,18 @@ const isHeightSupported = useMediaQuery('(min-height: 550px)')
         class="bg-transparent hover:opacity-100 opacity-70 duration-500 border-0 z-30 focus-within:opacity-100 top-0 left-0 right-0"
       >
         <template #title>
-          <LogosSpotify class="h-10 w-auto" />
-          TV
+          <div v-if="!isPlaying" class="flex">
+            <LogosSpotify class="h-10 w-auto" />
+            TV
+          </div>
+          <RouterLink
+            to="/artist/album/song/name"
+            v-else
+            class="w-64 h-10 flex justify-start gap-3 bg-gray-800 items-center text-sm"
+          >
+            <div class="h-10 w-12 bg-primary"></div>
+            <div class="animate-pulse w-full">Escuchando ahora</div>
+          </RouterLink>
         </template>
 
         <div class="flex gap-12">
@@ -58,8 +75,31 @@ const isHeightSupported = useMediaQuery('(min-height: 550px)')
 
         <template #right>
           <div class="flex gap-3">
-            <div class="size-8 bg-gray-800 rounded-full"></div>
-            <div class="size-8 bg-gray-800 rounded-full"></div>
+            <USlideover>
+              <button
+                class="size-8 flex justify-center items-center rounded-full"
+                color="neutral"
+                variant="subtle"
+              >
+                <LucideSettings class="size-6" />
+              </button>
+
+              <template #content>
+                <div class="p-3">
+                  <h3 class="mb-6 text-2xl">Configuraciones</h3>
+                  <USwitch
+                    v-model="guitarMode"
+                    size="xl"
+                    default-value
+                    label="Modo guitarra"
+                    description="Activa o desactiva el módulo según preferencias personales."
+                  />
+                </div>
+              </template>
+            </USlideover>
+            <div class="size-8 flex justify-center items-center rounded-full">
+              <LucideUser class="size-6" />
+            </div>
           </div>
         </template>
 

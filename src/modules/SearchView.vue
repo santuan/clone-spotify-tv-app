@@ -10,6 +10,7 @@
       placeholder="Search..."
       class="w-full"
     />
+    <div class="w-64 h-8 mt-6 bg-gray-600 block"></div>
   </UContainer>
   <UContainer
     class="grid grid-cols-4 gap-3 overflow-y-auto overflow-x-hidden max-h-[80vh] font-mono py-3"

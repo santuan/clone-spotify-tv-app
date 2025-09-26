@@ -7,27 +7,21 @@ const scrollContainer = ref<HTMLElement | null>(null)
 const updateShowSelected = async (title: string) => {
   ShowSelected.value = title
 
-  // Esperar a que el DOM se actualice
   await nextTick()
 
-  // Buscar el elemento enfocado y centrarlo
   const focusedElement = document.activeElement as HTMLElement
   if (focusedElement && scrollContainer.value) {
     const containerRect = scrollContainer.value.getBoundingClientRect()
     const elementRect = focusedElement.getBoundingClientRect()
 
-    // Verificar si el elemento está completamente visible
     const isCompletelyVisible =
       elementRect.top >= containerRect.top && elementRect.bottom <= containerRect.bottom
 
-    // Solo hacer scroll si el elemento NO está completamente visible
     if (!isCompletelyVisible) {
-      // Calcular la posición para centrar el elemento
       const containerCenter = containerRect.height / 2
       const elementCenter = elementRect.top - containerRect.top + elementRect.height / 2
       const scrollOffset = elementCenter - containerCenter
 
-      // Hacer scroll suave al elemento centrado
       scrollContainer.value.scrollBy({
         top: scrollOffset,
         behavior: 'smooth',
@@ -39,17 +33,17 @@ const updateShowSelected = async (title: string) => {
 const resetShowSelected = () => {
   ShowSelected.value = 'Música'
 }
+
+import { useCounterStore } from '@/stores/counter'
+import { storeToRefs } from 'pinia'
+const store = useCounterStore()
+const { guitarMode } = storeToRefs(store)
 </script>
 
 <template>
   <div class="h-[35vh] py-6 flex justify-center flex-col items-start bg-gray-700">
     <UContainer>
       <h1 class="text-4xl text-pretty tracking-tight font-bold text-highlighted">
-        <!-- <Transition name="fade" mode="out-in">
-          <span :key="ShowSelected">
-            {{ ShowSelected }}
-          </span>
-        </Transition> -->
         {{ ShowSelected }}
       </h1>
     </UContainer>
@@ -86,6 +80,7 @@ const resetShowSelected = () => {
         >
         <UButton
           size="lg"
+          v-if="guitarMode"
           to="/guitarmode"
           @focus="updateShowSelected(`Modo guitarra`)"
           @blur="resetShowSelected"

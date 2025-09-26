@@ -1,4 +1,3 @@
-// composables/useSpatialNavigation.js
 import { ref, onMounted, onUnmounted, nextTick } from 'vue'
 
 export function useSpatialNavigation(options = {}) {
@@ -24,12 +23,10 @@ export function useSpatialNavigation(options = {}) {
     ...options
   }
 
-  // Verificar si SpatialNavigation está disponible
   const checkSpatialNavigation = () => {
     return typeof window !== 'undefined' && window.SpatialNavigation
   }
 
-  // Inicializar la navegación espacial
   const init = async () => {
     if (!checkSpatialNavigation()) {
       console.warn('SpatialNavigation no está disponible. Asegúrate de incluir la librería.')
@@ -37,19 +34,14 @@ export function useSpatialNavigation(options = {}) {
     }
 
     try {
-      // Esperar a que el DOM esté listo
       await nextTick()
 
-      // Inicializar SpatialNavigation
       window.SpatialNavigation.init()
 
-      // Agregar elementos navegables con configuración
       window.SpatialNavigation.add(defaultOptions)
 
-      // Hacer elementos focusables
       window.SpatialNavigation.makeFocusable()
 
-      // Enfocar elemento por defecto o el primero
       if (defaultOptions.defaultElement) {
         const element = document.querySelector(defaultOptions.defaultElement)
         if (element) {
@@ -70,7 +62,6 @@ export function useSpatialNavigation(options = {}) {
     }
   }
 
-  // Destruir la navegación espacial
   const destroy = () => {
     if (checkSpatialNavigation() && isInitialized.value) {
       try {
@@ -84,7 +75,6 @@ export function useSpatialNavigation(options = {}) {
     }
   }
 
-  // Actualizar elementos navegables
   const refresh = async () => {
     if (checkSpatialNavigation() && isInitialized.value) {
       await nextTick()
@@ -97,7 +87,6 @@ export function useSpatialNavigation(options = {}) {
     }
   }
 
-  // Enfocar un elemento específico
   const focusElement = (selector) => {
     if (checkSpatialNavigation() && isInitialized.value) {
       try {
@@ -119,7 +108,6 @@ export function useSpatialNavigation(options = {}) {
     return false
   }
 
-  // Obtener el elemento actualmente enfocado
   const getCurrentFocusedElement = () => {
     if (checkSpatialNavigation() && isInitialized.value) {
       try {
@@ -132,7 +120,6 @@ export function useSpatialNavigation(options = {}) {
     return null
   }
 
-  // Mover el foco en una dirección específica
   const move = (direction) => {
     if (checkSpatialNavigation() && isInitialized.value) {
       const validDirections = ['left', 'right', 'up', 'down']
@@ -150,7 +137,6 @@ export function useSpatialNavigation(options = {}) {
     return false
   }
 
-  // Agregar nuevos elementos navegables dinámicamente
   const addNavigableElement = async (selector, config = {}) => {
     if (checkSpatialNavigation() && isInitialized.value) {
       await nextTick()
@@ -169,7 +155,6 @@ export function useSpatialNavigation(options = {}) {
     return false
   }
 
-  // Pausar/reanudar la navegación
   const pause = () => {
     if (checkSpatialNavigation() && isInitialized.value) {
       try {
@@ -196,7 +181,6 @@ export function useSpatialNavigation(options = {}) {
     return false
   }
 
-  // Event listeners personalizados
   const addEventListener = (eventName, callback) => {
     if (checkSpatialNavigation() && isInitialized.value) {
       try {
@@ -223,7 +207,6 @@ export function useSpatialNavigation(options = {}) {
     return false
   }
 
-  // Configurar teclas personalizadas
   const setKeyMap = (keyMap) => {
     if (checkSpatialNavigation()) {
       try {
@@ -237,9 +220,7 @@ export function useSpatialNavigation(options = {}) {
     return false
   }
 
-  // Lifecycle hooks automáticos
   onMounted(() => {
-    // Pequeño delay para asegurar que todo esté cargado
     setTimeout(init, 100)
   })
 
@@ -247,42 +228,32 @@ export function useSpatialNavigation(options = {}) {
     destroy()
   })
 
-  // API pública del composable
   return {
-    // Estados
     isInitialized,
     currentFocusedElement,
 
-    // Métodos principales
     init,
     destroy,
     refresh,
 
-    // Navegación
     focusElement,
     getCurrentFocusedElement,
     move,
 
-    // Gestión de elementos
     addNavigableElement,
 
-    // Control
     pause,
     resume,
 
-    // Eventos
     addEventListener,
     removeEventListener,
 
-    // Configuración
     setKeyMap,
 
-    // Utilidades
     checkSpatialNavigation
   }
 }
 
-// Hook específico para navegación en listas/grids
 export function useSpatialNavigationGrid(gridSelector, itemSelector) {
   const spatialNav = useSpatialNavigation({
     selector: `${gridSelector} ${itemSelector}`
@@ -293,7 +264,6 @@ export function useSpatialNavigationGrid(gridSelector, itemSelector) {
     const grid = document.querySelector(gridSelector)
 
     if (grid && items.length > 0) {
-      // Calcular las dimensiones de la grilla
       const gridStyle = window.getComputedStyle(grid)
       const columns = gridStyle.gridTemplateColumns.split(' ').length
 
@@ -312,25 +282,3 @@ export function useSpatialNavigationGrid(gridSelector, itemSelector) {
     navigateToItem
   }
 }
-
-// Ejemplo de uso en un componente:
-/*
-<script setup>
-import { useSpatialNavigation } from '@/composables/useSpatialNavigation'
-
-const spatialNav = useSpatialNavigation({
-  selector: '.my-focusable-elements',
-  defaultElement: '#first-element'
-})
-
-// Usar métodos del composable
-const handleCustomNavigation = () => {
-  spatialNav.move('right')
-}
-
-// Agregar elementos dinámicamente
-const addDynamicElement = () => {
-  spatialNav.addNavigableElement('.dynamic-element')
-}
-</script>
-*/
