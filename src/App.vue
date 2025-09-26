@@ -97,9 +97,30 @@ const { guitarMode, isPlaying } = storeToRefs(store)
                 </div>
               </template>
             </USlideover>
-            <div class="size-8 flex justify-center items-center rounded-full">
-              <LucideUser class="size-6" />
-            </div>
+            <USlideover>
+              <button
+                class="size-8 flex justify-center items-center rounded-full"
+                color="neutral"
+                variant="subtle"
+              >
+                <LucideUser class="size-6" />
+              </button>
+
+              <template #content>
+                <div class="p-3">
+                  <h3 class="mb-6 text-2xl">Usuario</h3>
+                  <div class="w-full px-1">
+                    <UUser
+                      name="Nombre Apellido"
+                      description="Plan premium"
+                      :avatar="{
+                        src: 'https://github.com/benjamincanac.png',
+                      }"
+                    />
+                  </div>
+                </div>
+              </template>
+            </USlideover>
           </div>
         </template>
 
