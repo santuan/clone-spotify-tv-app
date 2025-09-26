@@ -6,7 +6,7 @@
     </div>
     <UContainer>
       <p class="text-lg text-center pt-12">
-        Mis artistas con acordes, recientes o mas reproducidos sus videotutoriales
+        Mis artistas con partituras, recientes o mas reproducidos sus videotutoriales
       </p>
     </UContainer>
   </div>

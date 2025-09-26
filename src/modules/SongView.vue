@@ -69,6 +69,15 @@ onUnmounted(() => {
 const handleProgressChange = (value: number) => {
   progress.value = value
 }
+
+const activateGuitar = () => {
+  if (song_active_screen.value === 'guitar') {
+    song_active_screen.value = ' '
+  } else {
+    song_active_screen.value = 'guitar'
+    show_chords_videotutorial.value = 'videotutorial'
+  }
+}
 </script>
 
 <template>
@@ -109,7 +118,7 @@ const handleProgressChange = (value: number) => {
         <button
           class="size-24 dark_dim pt-24 bg-gray-600 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         ></button>
-        <h1 class="text-4xl">Nombre canción {{ song_active_screen }}</h1>
+        <h1 class="text-4xl">Nombre canción</h1>
         <div class="flex ml-auto justify-center gap-6 items-center">
           <UButton
             color="neutral"
@@ -171,25 +180,21 @@ const handleProgressChange = (value: number) => {
           <UButton
             v-if="guitar_mode"
             @click="
-              show_chords_videotutorial === 'acordes'
+              show_chords_videotutorial === 'partituras'
                 ? (show_chords_videotutorial = ' ')
-                : (show_chords_videotutorial = 'acordes')
+                : (show_chords_videotutorial = 'partituras')
             "
             color="neutral"
-            :variant="show_chords_videotutorial === 'acordes' ? 'solid' : 'outline'"
+            :variant="show_chords_videotutorial === 'partituras' ? 'solid' : 'outline'"
             size="xl"
             class="rounded-full focus-visible:scale-110"
-            >Acordes</UButton
+            >Partituras</UButton
           >
         </div>
         <div class="flex gap-4">
           <UButton
             v-if="guitar_mode"
-            @click="
-              song_active_screen === 'guitar'
-                ? (song_active_screen = ' ')
-                : (song_active_screen = 'guitar')
-            "
+            @click="activateGuitar()"
             color="neutral"
             :variant="song_active_screen === 'guitar' ? 'solid' : 'outline'"
             size="xl"

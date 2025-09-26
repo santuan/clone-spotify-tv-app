@@ -58,7 +58,7 @@ function pushWithQueryVideo() {
 
 function pushWithQueryChords() {
   song_active_screen.value = 'guitar'
-  show_chords_videotutorial.value = 'acordes'
+  show_chords_videotutorial.value = 'partituras'
   router.push('/artist/album/song/name')
 }
 </script>
@@ -104,7 +104,7 @@ function pushWithQueryChords() {
           class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
           >Podcasts</UButton
         >
-        <UButton
+        <!-- <UButton
           size="lg"
           v-if="guitar_mode"
           color="neutral"
@@ -114,21 +114,22 @@ function pushWithQueryChords() {
           @blur="resetShowSelected"
           class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
           >Ir a home de modo guitarra
-        </UButton>
+        </UButton> -->
       </div>
       <div class="grid grid-cols-4 gap-3 w-full">
         <RouterLink
           to="/artist/name"
           v-for="card in 8"
           :key="card"
-          @focus="updateShowSelected(`${isShowing} ${card}`)"
+          @focus="updateShowSelected(`Destacado ${card}`)"
           @blur="resetShowSelected"
           class="h-16 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:scale-105 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none ring"
         >
           <div class="h-16 text-xs min-w-16 bg-gray-600 flex justify-center items-center font-mono">
-            <template v-if="isShowing === 'Mostrar todos'"> Artista </template>
+            <!-- <template v-if="isShowing === 'Mostrar todos'"> Artista </template>
             <template v-else-if="isShowing === 'musica'"> musica </template>
-            <template v-else-if="isShowing === 'podcasts'"> Podcasts </template>
+            <template v-else-if="isShowing === 'podcasts'"> Podcasts </template> -->
+            Artista
           </div>
           <div class="h-16 px-3 flex justify-start items-center w-full">
             <div class="h-6 w-20 bg-gray-600" />
@@ -152,7 +153,7 @@ function pushWithQueryChords() {
           class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 focus-visible:scale-105 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         >
           <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            Álbum Recomendado {{ card }}
+            Álbum Recomendado 0{{ card }}
           </div>
         </RouterLink>
       </div>
@@ -172,8 +173,8 @@ function pushWithQueryChords() {
           @blur="resetShowSelected"
           class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 focus-visible:scale-105 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         >
-          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            {{ card }}
+          <div class="h-32 w-full bg-gray-600 flex justify-center p-3 items-center font-mono">
+            Artista Popular 0{{ card }}
           </div>
         </RouterLink>
       </div>
@@ -194,7 +195,7 @@ function pushWithQueryChords() {
           class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
         >
           <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            Videotutorial guitarra {{ card }}
+            Videotutorial guitarra 0{{ card }}
           </div>
         </button>
       </div>
@@ -204,12 +205,12 @@ function pushWithQueryChords() {
           v-for="card in 8"
           :key="card"
           @click="pushWithQueryChords"
-          @focus="updateShowSelected(`Canción con acordes ${card}`)"
+          @focus="updateShowSelected(`Canción con partituras ${card}`)"
           @blur="resetShowSelected"
           class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
         >
           <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            acordes {{ card }}
+            Canción con partituras 0{{ card }}
           </div>
         </button>
       </div>
@@ -229,8 +230,8 @@ function pushWithQueryChords() {
           @blur="resetShowSelected"
           class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
         >
-          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            {{ card }}
+          <div class="h-32 p-3 w-full bg-gray-600 flex justify-center items-center font-mono">
+            Mas podcasts 0{{ card }}
           </div>
         </RouterLink>
       </div>

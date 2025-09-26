@@ -44,7 +44,7 @@ const { guitar_mode, is_playing } = storeToRefs(store)
 // function showToast() {
 //   toast.add({
 //     title: 'Modo guitarra',
-//     description: 'Videotutoriales y acordes de guitarra de tus temas favoritos',
+//     description: 'Videotutoriales y partituras de guitarra de tus temas favoritos',
 //     actions: [
 //       {
 //         label: 'Activar',

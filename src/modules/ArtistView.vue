@@ -159,7 +159,7 @@ function pushWithQuery() {
           <div
             class="h-40 aspect-video bg-gray-600 flex outline-0 justify-center items-center font-mono text-xs"
           >
-            Videoturorial Guitarra 0{{ card }}
+            Videotutorial 0{{ card }}
           </div>
         </button>
       </div>

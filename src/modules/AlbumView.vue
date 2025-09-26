@@ -19,8 +19,8 @@ import IconPlay from '~icons/material-symbols/play-arrow'
         </RouterLink>
       </div>
     </div>
-    <div class="col-span-3 overflow-y-auto overflow-x-hidden py-3 p-6 h-[87vh] w-full">
-      <div class="grid gap-6 mt-6">
+    <div class="col-span-3 overflow-y-auto pt-12 overflow-x-hidden py-3 p-6 h-[87vh] w-full">
+      <div class="grid gap-6">
         <RouterLink
           to="/artist/album/song/name"
           v-for="card in 8"
