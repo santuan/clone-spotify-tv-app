@@ -6,7 +6,7 @@ export const useCounterStore = defineStore('counter', () => {
   const guitar = ref(false)
   const is_playing = ref(false)
   const song_active_screen = ref()
-  const show_chords_videotutorial = ref("")
+  const show_chords_videotutorial = ref("partituras")
 
   function toggleGuitar() {
     guitar_mode.value = !guitar_mode.value

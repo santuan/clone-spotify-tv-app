@@ -166,11 +166,7 @@ const activateGuitar = () => {
         <div v-else class="flex gap-3">
           <UButton
             v-if="guitar_mode"
-            @click="
-              show_chords_videotutorial === 'videotutorial'
-                ? (show_chords_videotutorial = ' ')
-                : (show_chords_videotutorial = 'videotutorial')
-            "
+            @click="show_chords_videotutorial = 'videotutorial'"
             color="neutral"
             :variant="show_chords_videotutorial === 'videotutorial' ? 'solid' : 'outline'"
             size="xl"
@@ -179,11 +175,7 @@ const activateGuitar = () => {
           >
           <UButton
             v-if="guitar_mode"
-            @click="
-              show_chords_videotutorial === 'partituras'
-                ? (show_chords_videotutorial = ' ')
-                : (show_chords_videotutorial = 'partituras')
-            "
+            @click="show_chords_videotutorial = 'partituras'"
             color="neutral"
             :variant="show_chords_videotutorial === 'partituras' ? 'solid' : 'outline'"
             size="xl"

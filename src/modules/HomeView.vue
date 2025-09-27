@@ -37,7 +37,7 @@ const resetShowSelected = () => {
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
-const { guitar_mode, song_active_screen, show_chords_videotutorial } = storeToRefs(store)
+const { song_active_screen, show_chords_videotutorial } = storeToRefs(store)
 
 const isShowing = ref('Mostrar todos')
 
