@@ -3,7 +3,7 @@ import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 import { ref } from 'vue'
 const store = useCounterStore()
-const { guitar_mode, song_active_screen } = storeToRefs(store)
+const { guitar_mode, song_active_screen, show_chords_videotutorial } = storeToRefs(store)
 
 const activeTab = ref('popular')
 
@@ -11,15 +11,16 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-function pushWithQuery() {
+function pushWithQueryVideo() {
   song_active_screen.value = 'guitar'
+  show_chords_videotutorial.value = 'videotutorial'
   router.push('/artist/album/song/name')
 }
 </script>
 <template>
   <UContainer class="grid grid-cols-5 pt-20 gap-12">
     <div class="col-span-2 pt-64">
-      <h1 class="text-2xl">Artist</h1>
+      <h1 class="text-2xl">Artista</h1>
       <div class="flex justify-start gap-6 items-center">
         <div
           class="w-24 mt-12 h-5 bg-gray-800 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
@@ -151,7 +152,7 @@ function pushWithQuery() {
         class="col-span-3 grid gap-6 overflow-y-auto overflow-x-hidden py-6 px-6 h-[75vh] w-full"
       >
         <button
-          @click="pushWithQuery()"
+          @click="pushWithQueryVideo()"
           v-for="card in 8"
           :key="card"
           class="h-40 gap-3 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
