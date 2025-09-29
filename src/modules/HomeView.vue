@@ -1,73 +1,15 @@
 <script setup lang="ts">
-import { ref, nextTick } from 'vue'
-
-const ShowSelected = ref('Artista 1')
-const scrollContainer = ref<HTMLElement | null>(null)
-
-const updateShowSelected = async (title: string) => {
-  ShowSelected.value = title
-
-  await nextTick()
-
-  const focusedElement = document.activeElement as HTMLElement
-  if (focusedElement && scrollContainer.value) {
-    const containerRect = scrollContainer.value.getBoundingClientRect()
-    const elementRect = focusedElement.getBoundingClientRect()
-
-    const isCompletelyVisible =
-      elementRect.top >= containerRect.top && elementRect.bottom <= containerRect.bottom
-
-    if (!isCompletelyVisible) {
-      const containerCenter = containerRect.height / 2
-      const elementCenter = elementRect.top - containerRect.top + elementRect.height / 2
-      const scrollOffset = elementCenter - containerCenter
-
-      scrollContainer.value.scrollBy({
-        top: scrollOffset,
-        behavior: 'smooth',
-      })
-    }
-  }
-}
-
-const resetShowSelected = () => {
-  ShowSelected.value = 'Música'
-}
-
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 const store = useCounterStore()
-const { song_active_screen, show_chords_videotutorial } = storeToRefs(store)
-
-const isShowing = ref('Mostrar todos')
-
-function changeShowing(i: string) {
-  console.log(i)
-  isShowing.value = i
-}
-
-import { useRouter } from 'vue-router'
-
-const router = useRouter()
-
-function pushWithQueryVideo() {
-  song_active_screen.value = 'guitar'
-  show_chords_videotutorial.value = 'videotutorial'
-  router.push('/artist/album/song/name')
-}
-
-function pushWithQueryChords() {
-  song_active_screen.value = 'guitar'
-  show_chords_videotutorial.value = 'partituras'
-  router.push('/artist/album/song/name')
-}
+const { guitar_mode, is_showing, home_show_selected, scrollContainer } = storeToRefs(store)
 </script>
 
 <template>
-  <div class="h-[35vh] pt-14 flex justify-center flex-col items-start bg-gray-700">
+  <div class="h-[35vh] pt-14 flex justify-center flex-col items-start bg-gray-800">
     <UContainer>
-      <h1 class="text-4xl text-pretty tracking-tight font-bold text-highlighted">
-        {{ ShowSelected }}
+      <h1 class="text-4xl font-bold tracking-tight text-pretty text-highlighted">
+        {{ home_show_selected }}
       </h1>
     </UContainer>
   </div>
@@ -75,164 +17,170 @@ function pushWithQueryChords() {
     ref="scrollContainer"
     class="bg-gray-900 overflow-y-auto h-[65vh] snap-y snap-proximity flex justify-start flex-col items-start"
   >
-    <UContainer class="py-6 gap-3 flex snap-center pb-20 flex-col justify-start pt-6 items-start">
-      <div class="flex gap-3 w-full">
+    <UContainer class="flex flex-col items-start justify-start gap-3 py-6 pt-6 pb-20 snap-start">
+      <div class="flex w-full gap-3">
         <UButton
           size="lg"
-          :color="isShowing === 'Mostrar todos' ? 'primary' : 'neutral'"
-          @click="changeShowing('Mostrar todos')"
-          @focus="updateShowSelected(`Mi coleccion`)"
-          @blur="resetShowSelected"
-          class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
+          :color="is_showing === 'todos' ? 'primary' : 'neutral'"
+          @click="store.changeShowing('todos')"
+          @focus="store.updateShowSelected(`Mi colección`)"
+          @blur="store.resetShowSelected"
+          class="font-bold transition-transform duration-300 rounded-full focus-visible:scale-110"
           >Mostrar todo
         </UButton>
         <UButton
           size="lg"
-          :color="isShowing === 'musica' ? 'primary' : 'neutral'"
-          @click="changeShowing('musica')"
-          @focus="updateShowSelected(`Música`)"
-          @blur="resetShowSelected"
-          class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
+          :color="is_showing === 'musica' ? 'primary' : 'neutral'"
+          @click="store.changeShowing('musica')"
+          @focus="store.updateShowSelected(`Música`)"
+          @blur="store.resetShowSelected"
+          class="font-bold transition-transform duration-300 rounded-full focus-visible:scale-110"
           >Música</UButton
         >
         <UButton
           size="lg"
-          :color="isShowing === 'podcasts' ? 'primary' : 'neutral'"
-          @click="changeShowing('podcasts')"
-          @focus="updateShowSelected(`Podcasts`)"
-          @blur="resetShowSelected"
-          class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
+          :color="is_showing === 'podcasts' ? 'primary' : 'neutral'"
+          @click="store.changeShowing('podcasts')"
+          @focus="store.updateShowSelected(`Podcasts`)"
+          @blur="store.resetShowSelected"
+          class="font-bold transition-transform duration-300 rounded-full focus-visible:scale-110"
           >Podcasts</UButton
         >
-        <!-- <UButton
-          size="lg"
-          v-if="guitar_mode"
-          color="neutral"
-          to="/guitarmode"
-          @click="changeShowing('modo-guitarra')"
-          @focus="updateShowSelected(`Modo guitarra`)"
-          @blur="resetShowSelected"
-          class="font-bold focus-visible:scale-110 duration-300 transition-transform rounded-full"
-          >Ir a home de modo guitarra
-        </UButton> -->
       </div>
-      <div class="grid grid-cols-4 gap-3 w-full">
-        <RouterLink
-          to="/artist/name"
-          v-for="card in 8"
-          :key="card"
-          @focus="updateShowSelected(`Destacado ${card}`)"
-          @blur="resetShowSelected"
-          class="h-16 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:scale-105 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none ring"
-        >
-          <div class="h-16 text-xs min-w-16 bg-gray-600 flex justify-center items-center font-mono">
-            <!-- <template v-if="isShowing === 'Mostrar todos'"> Artista </template>
-            <template v-else-if="isShowing === 'musica'"> musica </template>
-            <template v-else-if="isShowing === 'podcasts'"> Podcasts </template> -->
-            Artista
-          </div>
-          <div class="h-16 px-3 flex justify-start items-center w-full">
-            <div class="h-6 w-20 bg-gray-600" />
-          </div>
-        </RouterLink>
+      <div class="grid w-full grid-cols-4 gap-3">
+        <template v-if="is_showing === 'todos'">
+          <RouterLink
+            to="/artist/name"
+            v-for="i in 8"
+            :key="i"
+            @focus="store.updateShowSelected(`Artista destacado ${i}`)"
+            @blur="store.resetShowSelected"
+            class="flex items-center justify-start w-full h-16 overflow-hidden duration-300 bg-gray-800 outline-none focus-visible:ring-white focus-visible:scale-105 ring-transparent focus-visible:ring-offset-4 ring"
+          >
+            <div class="bg-gray-600 min-h-16 aspect-square"></div>
+            <div class="flex items-center justify-start w-full h-16 px-3">
+              Artista
+              {{ i }}
+            </div>
+          </RouterLink>
+        </template>
+        <template v-if="is_showing === 'musica'">
+          <RouterLink
+            to="/artist/album/name"
+            v-for="i in 8"
+            :key="i"
+            @focus="store.updateShowSelected(`Album destacado ${i}`)"
+            @blur="store.resetShowSelected"
+            class="flex items-center justify-start w-full h-16 overflow-hidden duration-300 bg-gray-800 outline-none focus-visible:ring-white focus-visible:scale-105 ring-transparent focus-visible:ring-offset-4 ring"
+          >
+            <div class="bg-gray-600 min-h-16 aspect-square"></div>
+            <div class="flex items-center justify-start w-full h-16 px-3">
+              Album
+              {{ i }}
+            </div>
+          </RouterLink>
+        </template>
+        <template v-if="is_showing === 'podcasts'">
+          <RouterLink
+            v-for="i in 8"
+            :key="i"
+            to="/artist/album/name"
+            @focus="store.updateShowSelected(`Podcast destacado ${i}`)"
+            @blur="store.resetShowSelected"
+            class="flex items-center justify-start w-full h-16 overflow-hidden duration-300 bg-gray-800 outline-none focus-visible:ring-white focus-visible:scale-105 ring-transparent focus-visible:ring-offset-4 ring"
+          >
+            <div class="bg-gray-600 min-h-16 aspect-square"></div>
+            <div class="flex items-center justify-start w-full h-16 px-3">Podcast {{ i }}</div>
+          </RouterLink>
+        </template>
       </div>
     </UContainer>
 
     <UContainer
-      v-if="isShowing === 'Mostrar todos'"
-      class="gap-3 w-full flex snap-center flex-col justify-start pb-20 items-start"
+      class="flex min-h-[60vh] flex-col items-start justify-start w-full gap-3 pt-6 pb-20 snap-start"
+      v-if="is_showing === 'todos'"
     >
       <p class="text-2xl">Recomendados</p>
-      <div class="grid grid-cols-4 gap-3 w-full">
+      <div class="grid w-full grid-cols-4 gap-3">
         <RouterLink
+          v-for="i in 4"
+          :key="i"
           to="/artist/album/name"
-          v-for="card in 4"
-          :key="card"
-          @focus="updateShowSelected(`Álbum Recomendado ${card}`)"
-          @blur="resetShowSelected"
-          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 focus-visible:scale-105 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+          @focus="store.updateShowSelected(`Álbum Recomendado ${i}`)"
+          @blur="store.resetShowSelected"
+          class="flex items-center justify-start w-full p-3 overflow-hidden duration-300 bg-gray-600 outline-none aspect-video focus-visible:ring-white focus-visible:ring-1 focus-visible:scale-105 ring-transparent focus-visible:ring-offset-4"
         >
-          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            Álbum Recomendado 0{{ card }}
-          </div>
+          Álbum Recomendado {{ i }}
         </RouterLink>
       </div>
     </UContainer>
 
     <UContainer
-      v-if="isShowing === 'musica'"
-      class="gap-3 w-full flex flex-col snap-center justify-start pb-20 items-start"
+      v-if="is_showing === 'musica' || is_showing === 'todos'"
+      class="flex flex-col min-h-[60vh] items-start justify-start w-full gap-3 pt-6 pb-20 snap-start"
     >
-      <p class="text-2xl w-64">Artistas</p>
-      <div class="grid grid-cols-8 w-full gap-3">
+      <p class="w-64 text-2xl">Artistas</p>
+      <div class="grid w-full grid-cols-8 gap-3">
         <RouterLink
           to="/artist/name"
-          v-for="card in 24"
-          :key="card"
-          @focus="updateShowSelected(`Artista Popular ${card}`)"
-          @blur="resetShowSelected"
-          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 focus-visible:scale-105 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+          v-for="i in 16"
+          :key="i"
+          @focus="store.updateShowSelected(`Artista Popular ${i}`)"
+          @blur="store.resetShowSelected"
+          class="flex items-center justify-start p-3 overflow-hidden duration-300 bg-gray-600 outline-none aspect-square focus-visible:ring-white focus-visible:ring-1 focus-visible:scale-105 ring-transparent focus-visible:ring-offset-4"
         >
-          <div class="h-32 w-full bg-gray-600 flex justify-center p-3 items-center font-mono">
-            Artista Popular 0{{ card }}
-          </div>
+          Artista {{ i }}
         </RouterLink>
       </div>
     </UContainer>
 
     <UContainer
-      v-if="isShowing === 'Mostrar todos'"
-      class="min-h-[80vh] gap-3 w-full flex flex-col snap-center justify-start pt-6 items-start"
+      v-if="is_showing === 'todos' && guitar_mode"
+      class="min-h-[80vh] gap-3 w-full flex flex-col snap-start justify-start pt-6 items-start"
     >
-      <p class="text-2xl w-64">Modo guitarra</p>
-      <div class="grid grid-cols-4 pt-2 w-full gap-3">
+      <p class="text-2xl w-96">Videotutorial Modo guitarra</p>
+      <div class="grid w-full grid-cols-4 gap-3 pt-2">
         <button
-          @click="pushWithQueryVideo"
-          v-for="card in 4"
-          :key="card"
-          @focus="updateShowSelected(`Videotutorial guitarra  ${card}`)"
-          @blur="resetShowSelected"
-          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
+          @click="store.pushWithQueryVideo"
+          v-for="i in 4"
+          :key="i"
+          @focus="store.updateShowSelected(`Videotutorial ${i}`)"
+          @blur="store.resetShowSelected"
+          class="flex items-center justify-start w-full p-3 overflow-hidden text-left duration-300 bg-gray-600 outline-none aspect-video focus-visible:ring-white focus-visible:ring-1 ring-transparent ring-offset-4"
         >
-          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            Videotutorial guitarra 0{{ card }}
-          </div>
+          Videotutorial {{ i }}
         </button>
       </div>
-      <p class="text-2xl w-64 pt-2">Modo guitarra</p>
-      <div class="grid grid-cols-8 w-full pb-40 gap-3">
+      <p class="w-64 pt-2 text-2xl">Con partituras</p>
+      <div class="grid w-full grid-cols-8 gap-3 pb-40">
         <button
-          v-for="card in 8"
-          :key="card"
-          @click="pushWithQueryChords"
-          @focus="updateShowSelected(`Canción con partituras ${card}`)"
-          @blur="resetShowSelected"
-          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
+          v-for="i in 8"
+          :key="i"
+          @click="store.pushWithQueryChords"
+          @focus="store.updateShowSelected(`Canción con partitura ${i}`)"
+          @blur="store.resetShowSelected"
+          class="flex items-center justify-start p-3 overflow-hidden text-left duration-300 bg-gray-600 outline-none aspect-square focus-visible:ring-white focus-visible:ring-1 ring-transparent ring-offset-4"
         >
-          <div class="h-32 w-full bg-gray-600 flex justify-center items-center font-mono">
-            Canción con partituras 0{{ card }}
-          </div>
+          Partituras {{ i }}
         </button>
       </div>
     </UContainer>
 
     <UContainer
-      v-if="isShowing === 'podcasts'"
-      class="min-h-[80vh] gap-3 w-full flex flex-col snap-center justify-start items-start"
+      v-if="is_showing === 'podcasts' || is_showing === 'todos'"
+      class="min-h-[80vh] gap-3 w-full flex flex-col snap-start justify-start items-start pt-6"
     >
-      <p class="text-2xl w-64">Podcasts</p>
-      <div class="grid grid-cols-8 w-full gap-3">
+      <p class="w-64 text-2xl">Podcasts</p>
+      <div class="grid w-full grid-cols-8 gap-3">
         <RouterLink
           to="/artist/name"
           v-for="card in 8"
           :key="card"
-          @focus="updateShowSelected(`Mas podcasts ${card}`)"
-          @blur="resetShowSelected"
-          class="h-32 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 duration-300 ring-transparent ring-offset-4 outline-none"
+          @focus="store.updateShowSelected(`Podcast ${card}`)"
+          @blur="store.resetShowSelected"
+          class="flex items-center justify-start w-full p-3 overflow-hidden duration-300 bg-gray-600 outline-none aspect-square focus-visible:ring-white focus-visible:ring-1 ring-transparent ring-offset-4"
         >
-          <div class="h-32 p-3 w-full bg-gray-600 flex justify-center items-center font-mono">
-            Mas podcasts 0{{ card }}
-          </div>
+          Podcasts {{ card }}
         </RouterLink>
       </div>
     </UContainer>

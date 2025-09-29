@@ -66,8 +66,10 @@ onUnmounted(() => {
 })
 
 // Allow manual progress control
-const handleProgressChange = (value: number) => {
-  progress.value = value
+const handleProgressChange = (value: number | undefined) => {
+  if (value !== undefined) {
+    progress.value = value
+  }
 }
 
 const activateGuitar = () => {
@@ -91,7 +93,7 @@ const activateGuitar = () => {
     >
       <UContainer
         v-if="song_active_screen === 'lyric'"
-        class="flex max-w-5xl mx-auto overflow-y-auto overflow-x-hidden h-screen max-h-[60vh] !gap-y-8 flex-wrap gap-3"
+        class="flex max-w-5xl mx-auto overflow-y-auto overflow-x-hidden h-screen max-h-[60vh] gap-y-8 flex-wrap gap-3"
       >
         <div
           v-for="i in 12"
@@ -102,10 +104,10 @@ const activateGuitar = () => {
       </UContainer>
       <UContainer
         v-if="song_active_screen === 'guitar'"
-        class="max-w-5xl mx-auto flex-col overflow-y-auto overflow-x-hidden h-screen flex justify-center items-center max-h-[60vh] !gap-y-8 flex-wrap gap-3"
+        class="max-w-5xl mx-auto flex-col overflow-y-auto overflow-x-hidden h-screen flex justify-center items-center max-h-[60vh] flex-wrap gap-3"
       >
         <h2>Modo guitarra</h2>
-        <span>{{ show_chords_videotutorial }}</span>
+        <p class="text-4xl capitalize">{{ show_chords_videotutorial }}</p>
       </UContainer>
     </div>
     <div class="bg-gradient-to-b to-gray-950 from-gray-950/50 pt-6 pb-12 w-full">

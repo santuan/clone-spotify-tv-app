@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
+import IconPlay from '~icons/material-symbols/play-arrow'
 const store = useCounterStore()
 const { guitar_mode } = storeToRefs(store)
-import IconPlay from '~icons/material-symbols/play-arrow'
 </script>
 <template>
   <UContainer class="grid grid-cols-5 pt-20 gap-20">
-    <div class="col-span-2 pt-10">
+    <div class="col-span-2 pt-12">
       <div class="bg-gray-700 mx-auto size-64 mb-6"></div>
       <h1 class="text-2xl">Album</h1>
       <div class="flex justify-end items-start mt-3 w-full">
