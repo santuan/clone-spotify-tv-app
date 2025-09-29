@@ -8,8 +8,8 @@ const { guitar_mode } = storeToRefs(store)
 const activeTab = ref('popular')
 </script>
 <template>
-  <div class="grid grid-cols-6 pl-10 px-6 max-w-full gap-12 pt-20">
-    <div class="col-span-2 ml-auto w-96 pl-4 pt-64">
+  <div class="grid grid-cols-12 pl-10 px-6 max-w-full gap-1 pt-20">
+    <div class="col-span-4 w-96 ml-auto pl-4 pt-64">
       <h1 class="text-2xl">Artista</h1>
       <div class="flex items-center justify-start gap-6">
         <div
@@ -28,7 +28,7 @@ const activeTab = ref('popular')
         ></div>
       </div>
     </div>
-    <div class="w-full col-span-4">
+    <div class="col-span-8">
       <div class="flex gap-4 p-6">
         <UButton
           @click="activeTab = 'popular'"
@@ -65,10 +65,10 @@ const activeTab = ref('popular')
       </div>
       <div
         v-if="activeTab === 'popular'"
-        class="col-span-3 grid gap-6 max-w-3xl overflow-y-auto overflow-x-hidden py-6 px-6 h-[75vh] w-full"
+        class="col-span-3 grid gap-6 max-w-3xl overflow-y-auto overflow-x-hidden pb-6 px-6 h-[75vh] w-full"
       >
-        <RouterLink
-          to="/artist/album/song/name"
+        <button
+          @click="store.pushWithQueryDefault"
           v-for="card in 8"
           :key="card"
           class="flex items-center justify-start w-full gap-6 overflow-hidden duration-300 bg-gray-800 outline-none size-28 focus-within:ring-white focus-within:ring-1 focus-within:scale-105 ring-transparent focus-visible:ring-offset-4"
@@ -101,14 +101,14 @@ const activeTab = ref('popular')
               <span class="h-4 bg-gray-400 w-14"></span>
             </div>
           </div>
-        </RouterLink>
+        </button>
       </div>
       <div
         v-if="activeTab === 'videos'"
-        class="col-span-3 grid gap-6 max-w-3xl overflow-y-auto overflow-x-hidden py-6 px-6 h-[75vh] w-full"
+        class="col-span-3 grid gap-6 max-w-3xl overflow-y-auto overflow-x-hidden pb-6 px-6 h-[75vh] w-full"
       >
-        <RouterLink
-          to="/artist/album/name"
+        <button
+          @click="store.pushWithQueryDefault"
           v-for="card in 8"
           :key="card"
           class="h-40 gap-3 w-full bg-gray-800 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
@@ -118,7 +118,7 @@ const activeTab = ref('popular')
           >
             Videos 0{{ card }}
           </div>
-        </RouterLink>
+        </button>
       </div>
       <div
         v-if="activeTab === 'discografia'"
@@ -126,50 +126,49 @@ const activeTab = ref('popular')
       >
         <button>Lanzamientos populares</button>
         <div
-          class="gap-4 snap-mandatory snap-x min-h-44 flex justify-start items-center py-2 max-w-fit overflow-x-auto w-full -ml-4"
+          class="gap-4 snap-mandatory snap-x min-h-48 flex justify-start items-center p-2 max-w-fit overflow-x-auto w-full -ml-4"
         >
           <div class="w-6"></div>
           <RouterLink
             to="/artist/album/name"
             v-for="card in 18"
             :key="card"
-            class="size-36 shrink-0 scroll-mx-6 aspect-square snap-start bg-gray-600 flex justify-start items-center p-3 focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+            class="size-40 shrink-0 scroll-mx-6 aspect-square snap-start bg-gray-600 flex justify-center items-center p-3 focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
           >
-            {{ card }}
+            Album {{ card }}
           </RouterLink>
         </div>
         <h3>Albums</h3>
         <div
-          class="gap-4 snap-mandatory snap-x min-h-44 flex justify-start items-center py-2 max-w-fit overflow-x-auto w-full -ml-4"
+          class="gap-4 snap-mandatory snap-x min-h-48 flex justify-start items-center p-2 max-w-fit overflow-x-auto w-full"
         >
-          <div class="w-6"></div>
           <RouterLink
             to="/artist/album/name"
-            v-for="card in 18"
+            v-for="card in 3"
             :key="card"
-            class="size-36 shrink-0 scroll-mx-6 aspect-square snap-start bg-gray-600 flex justify-start items-center p-3 focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+            class="size-40 shrink-0 scroll-mx-6 aspect-square snap-start bg-gray-600 flex justify-center items-center p-3 focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
           >
-            {{ card }}
+            Album {{ card }}
           </RouterLink>
         </div>
         <h3>Singles</h3>
         <div
-          class="gap-4 snap-mandatory snap-x min-h-44 flex justify-start items-center py-2 max-w-fit overflow-x-auto w-full -ml-4"
+          class="gap-4 snap-mandatory snap-x min-h-48 flex justify-start items-center p-2 max-w-fit overflow-x-auto w-full -ml-4"
         >
           <div class="w-6"></div>
           <RouterLink
             to="/artist/album/name"
-            v-for="card in 18"
+            v-for="card in 11"
             :key="card"
-            class="size-36 shrink-0 scroll-mx-6 aspect-square snap-start bg-gray-600 flex justify-start items-center p-3 focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+            class="size-40 shrink-0 scroll-mx-6 aspect-square snap-start bg-gray-600 flex justify-center items-center p-3 focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
           >
-            {{ card }}
+            Single {{ card }}
           </RouterLink>
         </div>
       </div>
       <div
         v-if="activeTab === 'guitar'"
-        class="col-span-3 grid gap-6 overflow-y-auto overflow-x-hidden py-6 px-6 h-[75vh] w-full"
+        class="col-span-3 grid gap-6 max-w-3xl overflow-y-auto overflow-x-hidden pb-6 px-6 h-[75vh] w-full"
       >
         <button
           @click="store.pushWithQueryVideo()"

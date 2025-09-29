@@ -59,7 +59,7 @@ const items = [
       <div class="flex gap-12">
         <RouterLink
           :to="`${item.to}`"
-          class="flex focusable items-center justify-center text-lg gap-2 outline-offset-8"
+          class="flex focusable items-center justify-center gap-2 outline-offset-8"
           v-for="item in items"
           :key="item.label"
         >
