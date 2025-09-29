@@ -73,7 +73,7 @@ const items = computed<NavigationMenuItem[]>(() => [
 
       <div class="absolute right-7 top-4">
         <div class="flex gap-3">
-          <USlideover title="Configuraciones">
+          <USlideover title="Configuraciones" :overlay="false">
             <button
               class="size-8 flex justify-center items-center rounded-full outline-offset-4"
               color="neutral"

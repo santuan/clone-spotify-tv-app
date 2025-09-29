@@ -11,6 +11,7 @@ export const useCounterStore = defineStore('counter', () => {
   const song_active_screen = ref()
   const show_chords_videotutorial = ref('partituras')
   const is_showing = ref('todos')
+
   function toggleGuitar() {
     guitar_mode.value = !guitar_mode.value
   }
@@ -36,22 +37,17 @@ export const useCounterStore = defineStore('counter', () => {
 
   const updateShowSelected = async (title: string) => {
     home_show_selected.value = title
-
     await nextTick()
-
     const focusedElement = document.activeElement as HTMLElement
     if (focusedElement && scrollContainer.value) {
       const containerRect = scrollContainer.value.getBoundingClientRect()
       const elementRect = focusedElement.getBoundingClientRect()
-
       const isCompletelyVisible =
         elementRect.top >= containerRect.top && elementRect.bottom <= containerRect.bottom
-
       if (!isCompletelyVisible) {
         const containerCenter = containerRect.height / 2
         const elementCenter = elementRect.top - containerRect.top + elementRect.height / 2
         const scrollOffset = elementCenter - containerCenter
-
         scrollContainer.value.scrollBy({
           top: scrollOffset,
           behavior: 'smooth',
@@ -65,6 +61,7 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   return {
+    scrollContainer,
     guitar_mode,
     guitar_modal,
     is_playing,
@@ -78,6 +75,5 @@ export const useCounterStore = defineStore('counter', () => {
     changeShowing,
     resetShowSelected,
     updateShowSelected,
-    scrollContainer
   }
 })

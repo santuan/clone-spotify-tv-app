@@ -144,11 +144,11 @@ const activateGuitar = () => {
         <USlider
           :model-value="progress"
           @update:model-value="handleProgressChange"
-          color="neutral"
+          :ui="{
+            thumb:
+              'focus-visible:ring-2 focus-visible:ring-offset-0  focus-visible:bg-white focus-visible:ring-white',
+          }"
         />
-        <!-- <div class="h-3 w-full bg-gray-500 rounded-full overflow-hidden">
-          <div class="h-6 w-96 bg-white" />
-        </div> -->
       </UContainer>
       <UContainer v-if="!isIdle" class="flex dark_dim justify-between items-center gap-4">
         <div class="flex gap-3" v-if="song_active_screen !== 'guitar'">
