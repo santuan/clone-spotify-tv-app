@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import type { NavigationMenuItem } from '@nuxt/ui'
-import { computed } from 'vue'
 import LogosSpotify from '~icons/logos/spotify'
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
@@ -14,7 +12,7 @@ import LucideUser from '~icons/lucide/user'
 const store = useCounterStore()
 const { guitar_mode, is_playing } = storeToRefs(store)
 
-const items = computed<NavigationMenuItem[]>(() => [
+const items = [
   {
     label: 'Inicio',
     to: '/',
@@ -30,7 +28,7 @@ const items = computed<NavigationMenuItem[]>(() => [
     to: '/my-library',
     icon: LucideLibrary,
   },
-])
+]
 </script>
 
 <template>
@@ -46,8 +44,8 @@ const items = computed<NavigationMenuItem[]>(() => [
           TV
         </RouterLink>
         <RouterLink
-          to="/artist/album/song/name"
           v-else
+          to="/artist/album/song/name"
           class="w-64 h-10 flex justify-start overflow-hidden outline-offset-4 gap-3 bg-gray-800 items-center text-sm"
         >
           <div class="h-10 w-12 bg-primary"></div>
@@ -57,7 +55,6 @@ const items = computed<NavigationMenuItem[]>(() => [
           </div>
         </RouterLink>
       </div>
-      <!-- <UButton label="Show toast" color="neutral" variant="outline" @click="showToast" /> -->
 
       <div class="flex gap-12">
         <RouterLink
@@ -73,7 +70,7 @@ const items = computed<NavigationMenuItem[]>(() => [
 
       <div class="absolute right-7 top-4">
         <div class="flex gap-3">
-          <USlideover title="Configuraciones" :overlay="false">
+          <USlideover title="Configuraciones">
             <button
               class="size-8 flex justify-center items-center rounded-full outline-offset-4"
               color="neutral"
@@ -110,7 +107,7 @@ const items = computed<NavigationMenuItem[]>(() => [
               <div class="w-full px-1">
                 <UUser
                   name="Nombre Apellido"
-                  description="Plan premium"
+                  description="Plan basic"
                   :avatar="{
                     src: 'https://avatars.githubusercontent.com/u/4934532?v=4&size=64',
                   }"

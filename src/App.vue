@@ -12,9 +12,9 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
 // @ts-expect-error External library js-spatial-navigation
 import { useSpatialNavigation } from '@/composable/useNav'
+import { RouterView } from 'vue-router'
 import { useMediaQuery } from '@vueuse/core'
 import TheHeader from './components/TheHeader.vue'
 
@@ -24,6 +24,10 @@ const isWidthSupported = useMediaQuery('(min-width: 1023px)')
 const isHeightSupported = useMediaQuery('(min-height: 550px)')
 
 /*
+//
+// Para crear una notificación a los 5 segundos.
+//
+
 import { onMounted } from 'vue'
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
