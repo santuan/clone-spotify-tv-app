@@ -9,7 +9,7 @@ const { song_active_screen, show_chords_videotutorial } = storeToRefs(store)
 
 <template>
   <UContainer class="dark_dim" v-if="!isIdle">
-    <div v-show="song_active_screen !== 'guitar'" class="grid grid-cols-4 gap-6 pb-6 pt-10 w-full">
+    <div v-show="song_active_screen !== 'guitar'" class="grid grid-cols-4 gap-6 py-6 w-full">
       <RouterLink
         to="/artist/album/name"
         v-for="card in 3"

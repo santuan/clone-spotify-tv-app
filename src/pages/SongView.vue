@@ -35,11 +35,13 @@ watch(
 
 <template>
   <div
-    class="grid overflow-y-auto overflow-x-hidden pt-0 bg-gray-950 gap-3"
+    class="grid overflow-y-auto relative overflow-x-hidden pt-0 bg-gray-950 gap-3"
     :class="song_dark ? 'dark-mode-active' : ''"
   >
     <SongMainScreen />
-    <SongControls />
-    <SongRelated />
+    <div class="relative bg-gradient-to-b to-gray-950 via-10% from-gray-950/50 pt-6 z-20">
+      <SongControls />
+      <SongRelated />
+    </div>
   </div>
 </template>

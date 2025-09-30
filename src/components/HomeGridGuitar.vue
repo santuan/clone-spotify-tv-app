@@ -12,29 +12,27 @@ const { guitar_mode, is_showing } = storeToRefs(store)
   >
     <p class="text-2xl">Videotutorial Modo guitarra</p>
     <div class="grid w-full grid-cols-4 gap-3 pt-2">
-      <button
-        @click="store.pushWithQueryVideo"
+      <CardSongVideo
         v-for="i in 4"
-        :key="i"
+        title="Videotutorial"
+        @click="store.pushWithQueryGuitarVideo"
         @focus="store.updateShowSelected(`Videotutorial ${i}`)"
         @blur="store.resetShowSelected"
-        class="flex items-center justify-start w-full p-3 overflow-hidden text-left duration-300 bg-gray-600 outline-none aspect-video focus-visible:ring-white focus-visible:ring-1 ring-transparent ring-offset-4"
-      >
-        Videotutorial {{ i }}
-      </button>
+        :item="i"
+        :key="i"
+      />
     </div>
     <p class="pt-2 text-2xl">Con partituras</p>
     <div class="grid w-full grid-cols-8 gap-3">
-      <button
+      <CardSongSquare
         v-for="i in 8"
-        :key="i"
-        @click="store.pushWithQueryChords"
+        title="Partituras"
+        @click="store.pushWithQueryGuitarChords"
         @focus="store.updateShowSelected(`Canción con partitura ${i}`)"
         @blur="store.resetShowSelected"
-        class="flex items-center justify-start p-3 overflow-hidden text-left duration-300 bg-gray-600 outline-none aspect-square focus-visible:ring-white focus-visible:ring-1 ring-transparent ring-offset-4"
-      >
-        Partituras {{ i }}
-      </button>
+        :key="i"
+        :item="i"
+      />
     </div>
   </UContainer>
 </template>

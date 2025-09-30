@@ -13,13 +13,27 @@ export const useCounterStore = defineStore('counter', () => {
   const show_chords_videotutorial = ref('partituras')
   const is_showing = ref('todos')
 
-  function pushWithQueryVideo() {
+  function pushWithQueryAlbum() {
+    router.push('/artist/album/name')
+  }
+
+  function pushWithQueryArtist() {
+    router.push('/artist/name')
+  }
+
+  function pushWithQueryVideoclip() {
+    song_active_screen.value = 'videoclip'
+    show_chords_videotutorial.value = ''
+    router.push('/artist/album/song/name')
+  }
+
+  function pushWithQueryGuitarVideo() {
     song_active_screen.value = 'guitar'
     show_chords_videotutorial.value = 'videotutorial'
     router.push('/artist/album/song/name')
   }
 
-  function pushWithQueryChords() {
+  function pushWithQueryGuitarChords() {
     song_active_screen.value = 'guitar'
     show_chords_videotutorial.value = 'partituras'
     router.push('/artist/album/song/name')
@@ -71,6 +85,13 @@ export const useCounterStore = defineStore('counter', () => {
     }
   }
 
+  const showVideoclip = () => {
+    if (song_active_screen.value === 'videoclip') {
+      return song_active_screen.value = ' '
+    }
+    song_active_screen.value = 'videoclip'
+  }
+
   return {
     scrollContainer,
     guitar_mode,
@@ -82,9 +103,13 @@ export const useCounterStore = defineStore('counter', () => {
     show_chords_videotutorial,
     home_show_selected,
     pushWithQueryDefault,
-    pushWithQueryVideo,
-    pushWithQueryChords,
+    pushWithQueryAlbum,
+    pushWithQueryArtist,
+    pushWithQueryGuitarVideo,
+    pushWithQueryGuitarChords,
+    pushWithQueryVideoclip,
     activateGuitar,
+    showVideoclip,
     changeShowing,
     resetShowSelected,
     updateShowSelected,

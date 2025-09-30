@@ -12,16 +12,15 @@ const { is_showing } = storeToRefs(store)
   >
     <p class="text-2xl">Recomendados</p>
     <div class="grid w-full grid-cols-4 gap-3">
-      <RouterLink
+      <CardSongVideo
         v-for="i in 4"
-        :key="i"
-        to="/artist/album/name"
+        title="Álbum Recomendado"
+        @click="store.pushWithQueryAlbum"
         @focus="store.updateShowSelected(`Álbum Recomendado ${i}`)"
         @blur="store.resetShowSelected"
-        class="flex items-center justify-start w-full p-3 overflow-hidden duration-300 bg-gray-600 outline-none aspect-video focus-visible:ring-white focus-visible:ring-1 focus-visible:scale-105 ring-transparent focus-visible:ring-offset-4"
-      >
-        Álbum Recomendado {{ i }}
-      </RouterLink>
+        :item="i"
+        :key="i"
+      />
     </div>
   </UContainer>
 </template>

@@ -12,16 +12,15 @@ const { is_showing } = storeToRefs(store)
   >
     <p class="w-64 text-2xl">Podcasts</p>
     <div class="grid w-full grid-cols-8 gap-3">
-      <RouterLink
-        to="/artist/name"
-        v-for="card in 8"
-        :key="card"
+      <CardSongSquare
+        @click="store.pushWithQueryArtist"
         @focus="store.updateShowSelected(`Podcast ${card}`)"
         @blur="store.resetShowSelected"
-        class="flex items-center justify-start w-full p-3 overflow-hidden duration-300 bg-gray-600 outline-none aspect-square focus-visible:ring-white focus-visible:ring-1 ring-transparent ring-offset-4"
-      >
-        Podcasts {{ card }}
-      </RouterLink>
+        v-for="card in 8"
+        :key="card"
+        :item="card"
+        title="Podcast"
+      />
     </div>
   </UContainer>
 </template>

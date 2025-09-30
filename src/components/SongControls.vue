@@ -1,12 +1,17 @@
 <script setup lang="ts">
 import { ref, onUnmounted, watch } from 'vue'
-import TablerPlayerSkipForwardFilled from '~icons/tabler/player-skip-forward-filled'
-import TablerPlayerSkipBackFilled from '~icons/tabler/player-skip-back-filled'
-import LucideShuffle from '~icons/lucide/shuffle'
-import UisRepeat from '~icons/uis/repeat'
+import IconPlayerSkipForwardFilled from '~icons/tabler/player-skip-forward-filled'
+import IconPlayerSkipBackFilled from '~icons/tabler/player-skip-back-filled'
+import IconShuffle from '~icons/lucide/shuffle'
+import IconMicrophone from '~icons/qlementine-icons/microphone-16'
+import IconRepeat from '~icons/uis/repeat'
+import IconGuitarPick from '~icons/tabler/guitar-pick'
+import IconVideoClip from '~icons/proicons/video-clip'
+import TdesignMusic1 from '~icons/tdesign/music-1'
+import IconQueue from '~icons/heroicons/queue-list'
+import IconDarkmode from '~icons/material-symbols-light/dark-mode-outline'
 const progress = ref(0)
 import { inject } from 'vue'
-
 const isIdle = inject('is_idle')
 let progressInterval: NodeJS.Timeout | null = null
 
@@ -64,11 +69,14 @@ const handleProgressChange = (value: number | undefined) => {
 <template>
   <div>
     <UContainer
-      class="flex gap-6 items-center"
-      :class="isIdle ? 'absolute bottom-8 bg-gray-950/90 backdrop-blur-xs p-3 left-0 right-0' : ''"
+      class="flex gap-6 items-center dark_dim"
+      v-if="song_active_screen !== 'videoclip' || !isIdle"
+      :class="
+        isIdle ? 'absolute bottom-8 bg-gray-950/80 backdrop-blur-xs z-50 p-3 left-0 right-0' : ''
+      "
     >
       <button
-        class="min-h-24 min-w-24 aspect-square dark_dim bg-gray-600 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
+        class="min-h-24 min-w-24 aspect-square bg-gray-600 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
         :class="isIdle ? 'ring-0! ring-offset-0! duration-100' : ''"
       ></button>
       <div class="flex justify-between w-full items-center">
@@ -121,25 +129,25 @@ const handleProgressChange = (value: number | undefined) => {
         <button
           class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
         >
-          <TablerPlayerSkipBackFilled class="size-4" />
+          <IconPlayerSkipBackFilled class="size-4" />
         </button>
         <button
           class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
         >
-          <TablerPlayerSkipForwardFilled class="size-4" />
+          <IconPlayerSkipForwardFilled class="size-4" />
         </button>
         <button
           class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
         >
-          <LucideShuffle class="size-4" />
+          <IconShuffle class="size-4" />
         </button>
         <button
           class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
         >
-          <UisRepeat class="size-4" />
+          <IconRepeat class="size-4" />
         </button>
       </div>
-      <div v-if="song_active_screen === 'guitar'" class="flex gap-3 pr-10">
+      <div v-if="song_active_screen === 'guitar'" class="flex gap-3">
         <UButton
           v-if="guitar_mode"
           @click="show_chords_videotutorial = 'videotutorial'"
@@ -166,10 +174,30 @@ const handleProgressChange = (value: number | undefined) => {
           color="neutral"
           :variant="song_active_screen === 'guitar' ? 'solid' : 'outline'"
           size="xl"
+          :icon="IconGuitarPick"
+          :ui="{
+            leadingIcon: 'size-5',
+          }"
           class="rounded-full focus-visible:scale-110"
         >
           <span v-if="song_active_screen === 'guitar'">Salir</span>
           Modo guitarra</UButton
+        >
+        <UButton
+          v-if="song_active_screen !== 'guitar'"
+          @click="store.showVideoclip()"
+          color="neutral"
+          :variant="song_active_screen === 'videoclip' ? 'solid' : 'outline'"
+          size="xl"
+          :icon="song_active_screen === 'videoclip' ? TdesignMusic1 : IconVideoClip"
+          class="rounded-full focus-visible:scale-110"
+          :ui="{
+            leadingIcon: 'size-4',
+          }"
+        >
+          {{
+            song_active_screen === 'videoclip' ? 'Cambiar a audio' : 'Cambiar a video musical'
+          }}</UButton
         >
         <UButton
           v-if="song_active_screen !== 'guitar'"
@@ -179,10 +207,15 @@ const handleProgressChange = (value: number | undefined) => {
               : (song_active_screen = 'lyric')
           "
           color="neutral"
+          :icon="IconMicrophone"
           :variant="song_active_screen === 'lyric' ? 'solid' : 'outline'"
           size="xl"
+          :ui="{
+            leadingIcon: 'size-4',
+          }"
           class="rounded-full focus-visible:scale-110"
-          >Letras
+        >
+          Letras
         </UButton>
 
         <USlideover
@@ -198,6 +231,7 @@ const handleProgressChange = (value: number | undefined) => {
             variant="outline"
             size="xl"
             class="rounded-full focus-visible:scale-110"
+            :icon="IconQueue"
             >Queue & jam</UButton
           >
 
@@ -213,6 +247,7 @@ const handleProgressChange = (value: number | undefined) => {
           :variant="song_dark ? 'solid' : 'outline'"
           color="neutral"
           size="xl"
+          :icon="IconDarkmode"
           class="rounded-full focus-visible:scale-110"
           >Modo oscuro</UButton
         >
