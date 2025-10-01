@@ -8,7 +8,7 @@ export const useCounterStore = defineStore('counter', () => {
   const guitar_modal = ref(false)
   const is_playing = ref(false)
   const home_show_selected = ref('Artista 1')
-  const song_active_screen = ref()
+  const song_active_screen = ref(' ')
   const song_dark = ref(false)
   const show_chords_videotutorial = ref('partituras')
   const is_showing = ref('todos')
