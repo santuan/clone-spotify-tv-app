@@ -24,8 +24,8 @@ const { home_show_selected, scrollContainer } = storeToRefs(store)
   >
     <HomeGridHighlight />
     <HomeGridSuggest />
-    <HomeGridArtist />
     <HomeGridGuitar />
+    <HomeGridArtist />
     <HomeGridPodcasts />
   </div>
 </template>
