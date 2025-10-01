@@ -6,7 +6,7 @@
     <!-- <p class="-mt-64">[Imagen del disco]</p> -->
     <img
       class="h-auto w-full bg-cover"
-      src="https://images.unsplash.com/photo-1471478331149-c72f17e33c73?q=80&w=1169&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+      src="https://res.cloudinary.com/srcouto/image/upload/v1759287181/rjkhpoxqmvgywe1gzjg9.webp"
     />
   </div>
 </template>
