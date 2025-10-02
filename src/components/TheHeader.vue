@@ -9,6 +9,11 @@ import LucideLibrary from '~icons/lucide/library'
 import LucideSettings from '~icons/lucide/settings'
 import LucideUser from '~icons/lucide/user'
 
+import LucideSquareArrowUp from '~icons/lucide/square-arrow-up'
+import LucideSquareArrowDown from '~icons/lucide/square-arrow-down'
+import LucideSquareArrowLeft from '~icons/lucide/square-arrow-left'
+import LucideSquareArrowRight from '~icons/lucide/square-arrow-right'
+
 const store = useCounterStore()
 const { guitar_mode, is_playing } = storeToRefs(store)
 
@@ -80,14 +85,27 @@ const items = [
             </button>
 
             <template #body>
-              <div class="grid mb-6 gap-3">
-                <div class="w-full bg-gray-800 h-20"></div>
+              <div class="grid bg-gray-800 px-3 py-6 mb-6 min-h-24 gap-3">
+                <div>
+                  <div class="w-full flex justify-center items-center">
+                    <LucideSquareArrowUp class="size-8" />
+                  </div>
+                  <div class="flex justify-center items-center w-full">
+                    <LucideSquareArrowLeft class="size-8" />
+                    <LucideSquareArrowDown class="size-8" />
+                    <LucideSquareArrowRight class="size-8" />
+                  </div>
+                </div>
+                <div class="text-center text-xs text-balance">
+                  Se puede navegar con el teclado para simular la navegacion de un SmartTV.
+                </div>
               </div>
               <USwitch
                 v-model="guitar_mode"
                 size="xl"
                 default-value
                 label="Modo guitarra"
+                class="flex-row-reverse"
                 description="Activa o desactiva el módulo según preferencias personales."
               />
               <div class="grid mt-6 gap-3">
