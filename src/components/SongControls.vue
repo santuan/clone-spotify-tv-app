@@ -70,9 +70,10 @@ const handleProgressChange = (value: number | undefined) => {
   <div>
     <UContainer
       class="flex gap-6 items-center dark_dim"
-      :class="
-        isIdle ? 'fixed bottom-8 bg-gray-950/80 backdrop-blur-xs z-50 p-3 left-0 right-0' : ''
-      "
+      :class="[
+        isIdle ? 'fixed bottom-8 bg-gray-950/80 backdrop-blur-xs z-50 p-3 left-0 right-0' : '',
+        song_active_screen === 'videoclip' && isIdle ? 'hidden' : '',
+      ]"
     >
       <button
         class="min-h-24 min-w-24 aspect-square bg-gray-600 flex justify-start items-center overflow-hidden focus-within:ring-white focus-within:ring-1 duration-300 ring-transparent focus-visible:ring-offset-4 outline-none"
