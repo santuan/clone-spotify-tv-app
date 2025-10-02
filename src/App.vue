@@ -20,7 +20,7 @@ import NotSupported from './components/NotSupported.vue'
 
 useSpatialNavigation()
 
-const isWidthSupported = useMediaQuery('(min-width: 123px)')
+const isWidthSupported = useMediaQuery('(min-width: 1230px)')
 const isHeightSupported = useMediaQuery('(min-height: 550px)')
 
 const isSizeSupported = computed(() => {
