@@ -4,7 +4,7 @@
     :class="isIdle ? 'opacity-80' : 'opacity-50'"
   >
     <video
-      autoplay
+      ref="videoRef"
       loop
       muted
       playsinline
@@ -28,7 +28,23 @@
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue'
+import { inject, ref, watchEffect } from 'vue'
+import { useCounterStore } from '@/stores/counter'
+import { storeToRefs } from 'pinia'
 
 const isIdle = inject('is_idle')
+const store = useCounterStore()
+const { is_playing } = storeToRefs(store)
+
+const videoRef = ref<HTMLVideoElement | null>(null)
+
+watchEffect(() => {
+  if (videoRef.value) {
+    if (is_playing.value) {
+      videoRef.value.play()
+    } else {
+      videoRef.value.pause()
+    }
+  }
+})
 </script>

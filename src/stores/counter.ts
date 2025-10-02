@@ -12,6 +12,7 @@ export const useCounterStore = defineStore('counter', () => {
   const song_dark = ref(false)
   const show_chords_videotutorial = ref('partituras')
   const is_showing = ref('todos')
+  const artist_music_active_tab = ref('popular')
 
   function pushWithQueryAlbum() {
     router.push('/artist/album/name')
@@ -22,18 +23,21 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   function pushWithQueryVideoclip() {
+    is_playing.value = true
     song_active_screen.value = 'videoclip'
     show_chords_videotutorial.value = ''
     router.push('/artist/album/song/name')
   }
 
   function pushWithQueryGuitarVideo() {
+    is_playing.value = true
     song_active_screen.value = 'guitar'
     show_chords_videotutorial.value = 'videotutorial'
     router.push('/artist/album/song/name')
   }
 
   function pushWithQueryGuitarChords() {
+    is_playing.value = true
     song_active_screen.value = 'guitar'
     show_chords_videotutorial.value = 'partituras'
     router.push('/artist/album/song/name')
@@ -41,8 +45,10 @@ export const useCounterStore = defineStore('counter', () => {
 
   function pushWithQueryDefault() {
     song_active_screen.value = ' '
+    is_playing.value = true
     router.push('/artist/album/song/name')
   }
+
 
   function changeShowing(i: string) {
     is_showing.value = i
@@ -102,6 +108,7 @@ export const useCounterStore = defineStore('counter', () => {
     song_dark,
     show_chords_videotutorial,
     home_show_selected,
+    artist_music_active_tab,
     pushWithQueryDefault,
     pushWithQueryAlbum,
     pushWithQueryArtist,

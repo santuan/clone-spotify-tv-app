@@ -39,7 +39,7 @@ watch(
     :class="song_dark ? 'dark-mode-active' : ''"
   >
     <SongMainScreen />
-    <div class="relative bg-gradient-to-b to-gray-950 via-10% from-gray-950/50 pt-6 z-20">
+    <div class="relative bg-gradient-to-b to-gray-950 via-10% from-gray-950/50 pb-32 pt-6 z-20">
       <SongControls />
       <SongRelated />
     </div>

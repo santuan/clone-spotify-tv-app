@@ -70,9 +70,8 @@ const handleProgressChange = (value: number | undefined) => {
   <div>
     <UContainer
       class="flex gap-6 items-center dark_dim"
-      v-if="song_active_screen !== 'videoclip' || !isIdle"
       :class="
-        isIdle ? 'absolute bottom-8 bg-gray-950/80 backdrop-blur-xs z-50 p-3 left-0 right-0' : ''
+        isIdle ? 'fixed bottom-8 bg-gray-950/80 backdrop-blur-xs z-50 p-3 left-0 right-0' : ''
       "
     >
       <button

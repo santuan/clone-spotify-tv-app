@@ -1,13 +1,14 @@
 <template>
   <div
-    class="col-span-3 grid gap-6 max-w-3xl overflow-y-auto overflow-x-hidden pb-6 px-6 h-[75vh] w-full"
+    class="flex gap-6 flex-wrap max-w-3xl overflow-y-auto overflow-x-hidden pt-3 pb-6 px-6 h-[75vh] w-full"
   >
-    <CardSongVideoFull
+    <CardSongSquare
       @click="store.pushWithQueryVideoclip"
-      v-for="card in 8"
+      v-for="card in 24"
       :key="card"
       :item="card"
-      title="Video"
+      title="Canción destacada"
+      class="size-36!"
     />
   </div>
 </template>

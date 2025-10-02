@@ -33,7 +33,7 @@ const items = [
 
 <template>
   <div
-    class="bg-black main_header hover:opacity-100 opacity-70 duration-500 border-0 z-30 focus-within:opacity-100 fixed top-0 left-0 right-0"
+    class="bg-black main_header hover:opacity-100 opacity-30 duration-500 border-0 z-30 focus-within:opacity-100 fixed top-0 left-0 right-0"
   >
     <div
       class="max-w-(--ui-container) mx-auto w-full flex items-center relative justify-center h-16"
