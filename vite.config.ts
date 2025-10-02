@@ -10,7 +10,9 @@ import Icons from 'unplugin-icons/vite'
 export default defineConfig({
   plugins: [
     vue(),
-    ui(),
+    ui(
+      { colorMode: false }
+    ),
     Icons({ /* options */ }),
     vueDevTools(),
   ],
