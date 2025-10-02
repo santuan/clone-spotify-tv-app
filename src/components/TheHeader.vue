@@ -97,7 +97,7 @@ const items = [
                   </div>
                 </div>
                 <div class="text-center text-xs text-balance">
-                  Se puede navegar con el teclado para simular la navegacion de un SmartTV.
+                  Se puede navegar con el teclado para simular la navegación de un SmartTV.
                 </div>
               </div>
               <USwitch
