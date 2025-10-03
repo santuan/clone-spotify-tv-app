@@ -5,21 +5,21 @@ export function useSpatialNavigation(options = {}) {
   const currentFocusedElement = ref(null)
 
   const defaultOptions = {
-    selector: 'a, button, .focusable, input, button.focusable, input.focusable',
-    straightOnly: false,
-    straightOverlapThreshold: 0.5,
-    rememberSource: false,
-    disabled: false,
     defaultElement: null,
+    disabled: false,
     enterTo: 'last-focused',
     leaveFor: null,
-    restrict: 'self-first',
-    tabIndexIgnoreList: 'a, input, select, textarea, button, iframe, [contentEditable=true]',
     navigableFilter: null,
+    rememberSource: false,
+    restrict: 'self-first',
     scrollOptions: {
       behavior: 'smooth',
       block: 'center',
     },
+    selector: 'a, button, .focusable, input, button.focusable, input.focusable',
+    straightOnly: false,
+    straightOverlapThreshold: 0.5,
+    tabIndexIgnoreList: 'a, input, select, textarea, button, iframe, [contentEditable=true]',
     ...options
   }
 
@@ -229,28 +229,28 @@ export function useSpatialNavigation(options = {}) {
   })
 
   return {
-    isInitialized,
-    currentFocusedElement,
+    addEventListener,
+    addNavigableElement,
 
-    init,
+    checkSpatialNavigation,
+    currentFocusedElement,
     destroy,
-    refresh,
 
     focusElement,
     getCurrentFocusedElement,
+    init,
+
+    isInitialized,
+
     move,
-
-    addNavigableElement,
-
     pause,
-    resume,
 
-    addEventListener,
+    refresh,
     removeEventListener,
 
-    setKeyMap,
+    resume,
 
-    checkSpatialNavigation
+    setKeyMap
   }
 }
 

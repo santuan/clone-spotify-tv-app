@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import { inject } from 'vue'
-import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
+import { inject } from 'vue'
+
+import { useCounterStore } from '@/stores/counter'
 const isIdle = inject('is_idle')
 const store = useCounterStore()
 const { song_active_screen, show_chords_videotutorial } = storeToRefs(store)

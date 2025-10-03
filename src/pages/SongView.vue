@@ -1,13 +1,13 @@
 <script setup lang="ts">
+import { useIdle } from '@vueuse/core'
+import { storeToRefs } from 'pinia'
 import { watch, computed } from 'vue'
 import { provide } from 'vue'
-import { useIdle } from '@vueuse/core'
 
 import { useCounterStore } from '@/stores/counter'
-import { storeToRefs } from 'pinia'
 
 const store = useCounterStore()
-const { is_playing, song_active_screen, guitar_mode, song_dark } = storeToRefs(store)
+const { guitar_mode, is_playing, song_active_screen, song_dark } = storeToRefs(store)
 
 const { idle } = useIdle(4000)
 

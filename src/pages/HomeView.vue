@@ -1,11 +1,7 @@
 <script setup lang="ts">
-import HomeGridArtist from '@/components/HomeGridArtist.vue'
-import HomeGridGuitar from '@/components/HomeGridGuitar.vue'
-import HomeGridHighlight from '@/components/HomeGridHighlight.vue'
-import HomeGridPodcasts from '@/components/HomeGridPodcasts.vue'
-import HomeGridSuggest from '@/components/HomeGridSuggest.vue'
-import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
+
+import { useCounterStore } from '@/stores/counter'
 const store = useCounterStore()
 const { home_show_selected, scrollContainer } = storeToRefs(store)
 </script>

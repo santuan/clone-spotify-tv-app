@@ -1,3 +1,26 @@
+<script setup lang="ts">
+import { storeToRefs } from 'pinia'
+import { inject, ref, watchEffect } from 'vue'
+
+import { useCounterStore } from '@/stores/counter'
+
+const isIdle = inject('is_idle')
+const store = useCounterStore()
+const { is_playing } = storeToRefs(store)
+
+const videoRef = ref<HTMLVideoElement | null>(null)
+
+watchEffect(() => {
+  if (videoRef.value) {
+    if (is_playing.value) {
+      videoRef.value.play()
+    } else {
+      videoRef.value.pause()
+    }
+  }
+})
+</script>
+
 <template>
   <div
     class="fixed inset-0 flex justify-center items-center"
@@ -26,25 +49,3 @@
     </video>
   </div>
 </template>
-
-<script setup lang="ts">
-import { inject, ref, watchEffect } from 'vue'
-import { useCounterStore } from '@/stores/counter'
-import { storeToRefs } from 'pinia'
-
-const isIdle = inject('is_idle')
-const store = useCounterStore()
-const { is_playing } = storeToRefs(store)
-
-const videoRef = ref<HTMLVideoElement | null>(null)
-
-watchEffect(() => {
-  if (videoRef.value) {
-    if (is_playing.value) {
-      videoRef.value.play()
-    } else {
-      videoRef.value.pause()
-    }
-  }
-})
-</script>

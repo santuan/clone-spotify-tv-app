@@ -1,27 +1,28 @@
 <script setup lang="ts">
-import { ref, onUnmounted, watch } from 'vue'
-import IconPlayerSkipForwardFilled from '~icons/tabler/player-skip-forward-filled'
-import IconPlayerSkipBackFilled from '~icons/tabler/player-skip-back-filled'
-import IconShuffle from '~icons/lucide/shuffle'
-import IconMicrophone from '~icons/qlementine-icons/microphone-16'
-import IconRepeat from '~icons/uis/repeat'
-import IconGuitarPick from '~icons/tabler/guitar-pick'
-import IconVideoClip from '~icons/proicons/video-clip'
-import TdesignMusic1 from '~icons/tdesign/music-1'
 import IconQueue from '~icons/heroicons/queue-list'
+import IconShuffle from '~icons/lucide/shuffle'
 import IconDarkmode from '~icons/material-symbols-light/dark-mode-outline'
+import IconVideoClip from '~icons/proicons/video-clip'
+import IconMicrophone from '~icons/qlementine-icons/microphone-16'
+import IconGuitarPick from '~icons/tabler/guitar-pick'
+import IconPlayerSkipBackFilled from '~icons/tabler/player-skip-back-filled'
+import IconPlayerSkipForwardFilled from '~icons/tabler/player-skip-forward-filled'
+import TdesignMusic1 from '~icons/tdesign/music-1'
+import IconRepeat from '~icons/uis/repeat'
+import { ref, onUnmounted, watch } from 'vue'
 const progress = ref(0)
 import { inject } from 'vue'
 const isIdle = inject('is_idle')
 let progressInterval: NodeJS.Timeout | null = null
 
-import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
+
+import { useCounterStore } from '@/stores/counter'
 const store = useCounterStore()
 const { is_playing, song_active_screen, guitar_mode, show_chords_videotutorial, song_dark } =
   storeToRefs(store)
-import IconPlay from '~icons/material-symbols/play-arrow'
 import IconPause from '~icons/material-symbols/pause'
+import IconPlay from '~icons/material-symbols/play-arrow'
 
 // Simulate song progress
 const startProgress = () => {

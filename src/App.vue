@@ -11,12 +11,14 @@
 </template>
 
 <script setup lang="ts">
-import { useSpatialNavigation } from '@/composable/useNav'
-import { RouterView } from 'vue-router'
 import { useMediaQuery } from '@vueuse/core'
 import { computed } from 'vue'
-import TheHeader from './components/TheHeader.vue'
+import { RouterView } from 'vue-router'
+
+import { useSpatialNavigation } from '@/composable/useNav'
+
 import NotSupported from './components/NotSupported.vue'
+import TheHeader from './components/TheHeader.vue'
 
 useSpatialNavigation()
 

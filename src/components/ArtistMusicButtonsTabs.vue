@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
+
+import { useCounterStore } from '@/stores/counter'
 const store = useCounterStore()
 const { guitar_mode, artist_music_active_tab } = storeToRefs(store)
 </script>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { storeToRefs } from 'pinia'
-import ArtistMusicListPopularSongs from './ArtistMusicListPopularSongs.vue'
 import { useCounterStore } from '@/stores/counter'
 const store = useCounterStore()
 const { artist_music_active_tab } = storeToRefs(store)

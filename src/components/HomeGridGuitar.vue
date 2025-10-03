@@ -14,7 +14,7 @@ const { guitar_mode, is_showing } = storeToRefs(store)
       <p class="text-2xl">Modo guitarra</p>
       <UBadge size="md">Nuevo!</UBadge>
     </div>
-    <div class="grid w-full grid-cols-8 gap-3 pt-2">
+    <div class="grid w-full grid-cols-8 gap-3">
       <CardSongVideo
         v-for="i in 4"
         title="Videotutorial"

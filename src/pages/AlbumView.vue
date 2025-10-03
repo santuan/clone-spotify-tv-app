@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import IconPlay from '~icons/material-symbols/play-arrow'
+
 import CardSongFull from '@/components/CardSongFull.vue'
 import { useCounterStore } from '@/stores/counter'
-import IconPlay from '~icons/material-symbols/play-arrow'
 const store = useCounterStore()
 </script>
 <template>

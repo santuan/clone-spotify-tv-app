@@ -1,37 +1,36 @@
 <script setup lang="ts">
 import LogosSpotify from '~icons/logos/spotify'
-import { useCounterStore } from '@/stores/counter'
+import IconHouse from '~icons/lucide/house'
+import IconLibrary from '~icons/lucide/library'
+import IconSearch from '~icons/lucide/search'
+import IconSettings from '~icons/lucide/settings'
+import IconSquareArrowDown from '~icons/lucide/square-arrow-down'
+import IconSquareArrowLeft from '~icons/lucide/square-arrow-left'
+import IconSquareArrowRight from '~icons/lucide/square-arrow-right'
+import IconSquareArrowUp from '~icons/lucide/square-arrow-up'
+import IconUser from '~icons/lucide/user'
 import { storeToRefs } from 'pinia'
 
-import LucideSearch from '~icons/lucide/search'
-import LucideHouse from '~icons/lucide/house'
-import LucideLibrary from '~icons/lucide/library'
-import LucideSettings from '~icons/lucide/settings'
-import LucideUser from '~icons/lucide/user'
-
-import LucideSquareArrowUp from '~icons/lucide/square-arrow-up'
-import LucideSquareArrowDown from '~icons/lucide/square-arrow-down'
-import LucideSquareArrowLeft from '~icons/lucide/square-arrow-left'
-import LucideSquareArrowRight from '~icons/lucide/square-arrow-right'
+import { useCounterStore } from '@/stores/counter'
 
 const store = useCounterStore()
 const { guitar_mode, is_playing } = storeToRefs(store)
 
 const items = [
   {
+    icon: IconHouse,
     label: 'Inicio',
     to: '/',
-    icon: LucideHouse,
   },
   {
+    icon: IconSearch,
     label: 'Buscar',
     to: '/search',
-    icon: LucideSearch,
   },
   {
+    icon: IconLibrary,
     label: 'Mi librería',
     to: '/my-library',
-    icon: LucideLibrary,
   },
 ]
 </script>
@@ -81,19 +80,19 @@ const items = [
               color="neutral"
               variant="subtle"
             >
-              <LucideSettings class="size-6" />
+              <IconSettings class="size-6" />
             </button>
 
             <template #body>
               <div class="grid bg-gray-800 px-3 py-6 mb-6 min-h-24 gap-3">
                 <div>
                   <div class="w-full flex justify-center items-center">
-                    <LucideSquareArrowUp class="size-8" />
+                    <IconSquareArrowUp class="size-8" />
                   </div>
                   <div class="flex justify-center items-center w-full">
-                    <LucideSquareArrowLeft class="size-8" />
-                    <LucideSquareArrowDown class="size-8" />
-                    <LucideSquareArrowRight class="size-8" />
+                    <IconSquareArrowLeft class="size-8" />
+                    <IconSquareArrowDown class="size-8" />
+                    <IconSquareArrowRight class="size-8" />
                   </div>
                 </div>
                 <div class="text-center text-xs text-balance">
@@ -119,7 +118,7 @@ const items = [
               color="neutral"
               variant="subtle"
             >
-              <LucideUser class="size-6" />
+              <IconUser class="size-6" />
             </button>
             <template #body>
               <div class="w-full px-1">

@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import IconPlay from '~icons/material-symbols/play-arrow'
+import { storeToRefs } from 'pinia'
+
+import { useCounterStore } from '@/stores/counter'
+
+const store = useCounterStore()
+const { show_chords_videotutorial } = storeToRefs(store)
+</script>
+
 <template>
   <div
     class="flex-col bg-gray-950 overflow-y-auto overflow-x-hidden h-screen flex justify-center items-center max-h-[80vh] flex-wrap gap-3"
@@ -29,12 +39,3 @@
     />
   </div>
 </template>
-
-<script setup lang="ts">
-import IconPlay from '~icons/material-symbols/play-arrow'
-import { useCounterStore } from '@/stores/counter'
-import { storeToRefs } from 'pinia'
-
-const store = useCounterStore()
-const { show_chords_videotutorial } = storeToRefs(store)
-</script>
