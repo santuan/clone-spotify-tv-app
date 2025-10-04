@@ -40,7 +40,8 @@ watch(
   >
     <SongMainScreen />
     <div
-      class="relative bg-gradient-to-b mt-80 from-transparent via-30% min-h-screen via-gray-950/90 to-gray-950 pb-32 pt-6 z-20"
+      class="relative bg-gradient-to-b duration-500 mt-80 from-transparent via-30% via-gray-950/90 to-gray-950 pb-6 pt-6 z-20"
+      :class="isIdle && song_active_screen === 'videoclip' ? 'opacity-20' : ''"
     >
       <SongControls />
       <SongRelated />
