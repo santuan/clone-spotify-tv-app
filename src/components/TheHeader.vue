@@ -63,7 +63,7 @@ const items = [
       <div class="flex gap-12">
         <RouterLink
           :to="`${item.to}`"
-          class="flex focusable items-center justify-center gap-2 outline-offset-8"
+          class="flex focusable h-10 items-center justify-center gap-2 outline-offset-8"
           v-for="item in items"
           :key="item.label"
         >
@@ -73,8 +73,13 @@ const items = [
       </div>
 
       <div class="absolute right-7 top-4">
-        <div class="flex gap-3">
-          <USlideover title="Configuraciones">
+        <div class="flex gap-6">
+          <USlideover
+            title="Configuraciones"
+            :close="{
+              variant: 'outline',
+            }"
+          >
             <button
               class="size-8 flex justify-center items-center rounded-full outline-offset-4"
               color="neutral"

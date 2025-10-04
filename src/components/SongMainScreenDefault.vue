@@ -5,7 +5,7 @@
   >
     <!-- <p class="-mt-64">[Imagen del disco]</p> -->
     <img
-      class="h-auto w-full bg-cover"
+      class="h-screen object-cover w-full"
       src="https://res.cloudinary.com/srcouto/image/upload/v1759287181/rjkhpoxqmvgywe1gzjg9.webp"
     />
   </div>

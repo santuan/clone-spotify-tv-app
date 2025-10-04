@@ -32,16 +32,6 @@ html {
   font-size: 18px;
 }
 
-a,
-button {
-  border: 2px solid transparent;
-
-  &:hover {
-    @apply outline-offset-4!;
-    border-color: #fff;
-  }
-}
-
 body,
 body div {
   @apply scroll-smooth;
@@ -49,7 +39,7 @@ body div {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.9s ease;
 }
 
 .fade-enter-from,

@@ -1,8 +1,69 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref } from 'vue'
+
+const groups = ref([
+  {
+    id: 'users',
+    label: 'Users',
+    items: [
+      {
+        label: 'Benjamin Canac',
+        suffix: 'benjamincanac',
+        avatar: {
+          src: 'https://github.com/benjamincanac.png',
+        },
+      },
+      {
+        label: 'Sylvain Marroufin',
+        suffix: 'smarroufin',
+        avatar: {
+          src: 'https://github.com/smarroufin.png',
+        },
+      },
+      {
+        label: 'Sébastien Chopin',
+        suffix: 'atinux',
+        avatar: {
+          src: 'https://github.com/atinux.png',
+        },
+      },
+      {
+        label: 'Romain Hamel',
+        suffix: 'romhml',
+        avatar: {
+          src: 'https://github.com/romhml.png',
+        },
+      },
+      {
+        label: 'Haytham A. Salama',
+        suffix: 'Haythamasalama',
+        avatar: {
+          src: 'https://github.com/Haythamasalama.png',
+        },
+      },
+      {
+        label: 'Daniel Roe',
+        suffix: 'danielroe',
+        avatar: {
+          src: 'https://github.com/danielroe.png',
+        },
+      },
+      {
+        label: 'Neil Richter',
+        suffix: 'noook',
+        avatar: {
+          src: 'https://github.com/noook.png',
+        },
+      },
+    ],
+  },
+])
+const value = ref({})
+</script>
 
 <template>
   <UContainer class="pb-6 pt-32">
-    <UInput
+    <!-- <UInput
       icon="i-lucide-search"
       size="xl"
       color="neutral"
@@ -22,6 +83,8 @@
       class="aspect-square w-full bg-gray-600 flex justify-center items-center overflow-hidden focus-visible:ring-white focus-visible:ring-1 ring-transparent focus-visible:ring-offset-4 outline-none"
     >
       {{ card }}
-    </RouterLink>
+    </RouterLink> -->
+
+    <UCommandPalette v-model="value" :groups="groups" class="flex-1" />
   </UContainer>
 </template>

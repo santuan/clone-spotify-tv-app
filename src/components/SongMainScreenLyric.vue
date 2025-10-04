@@ -1,26 +1,20 @@
 <template>
   <div
-    class="flex bg-emerald-950 justify-start items-start flex-col overflow-x-hidden h-screen max-h-[90vh] gap-y-8 flex-wrap gap-3"
+    class="flex bg-gray-800 justify-start relative items-start flex-col h-screen max-h-screen gap-y-8 flex-wrap gap-3 overflow-hidden"
   >
     <div
-      class="grid gap-12 w-full py-0 max-w-4xl mx-auto justify-center overflow-y-auto max-h-[80vh] scroll-smooth"
+      class="grid gap-4 w-full py-64 pt-44 max-w-3xl mx-auto z-10 justify-center overflow-y-auto h-screen scroll-smooth"
       :class="isIdle ? 'opacity-80' : 'opacity-50'"
       ref="scrollContainerLyrics"
     >
-      <div
+      <span
         v-for="(text, index) in buttons"
         :key="index"
-        class="text-center outline-none text-4xl opacity-80 hover:opacity-100 border-0! duration-300 focus-visible:opacity-100"
+        class="lyric-line text-left outline-none font-extrabold leading-none hover:underline underline-offset-2 text-3xl opacity-70 hover:opacity-100 border-0! focus-visible:opacity-100"
       >
         {{ text }}
-      </div>
+      </span>
     </div>
-    <div
-      class="fixed bg-gradient-to-t from-transparent via-emerald-950/50 to-emerald-950 z-50 left-0 right-0 top-0 h-64 pointer-events-none"
-    ></div>
-    <div
-      class="fixed bg-gradient-to-b from-transparent via-emerald-950/50 to-emerald-950 z-50 left-0 right-0 bottom-0 h-[20rem] pointer-events-none"
-    ></div>
   </div>
 </template>
 
@@ -32,19 +26,59 @@ const isIdle = inject('is_idle')
 const scrollContainerLyrics = ref<HTMLDivElement | null>(null)
 
 const buttons = [
-  'Las letras son palabras',
-  'Componen una canción musical',
-  'Consisten en versos coros',
-  'El escritor es letrista',
-  'Óperas tienen libretos escritos',
-  'Su autor es libretista',
-  'Rap contiene letras rítmicas',
-  'Con palabras que riman',
-  'Se hablan no cantan',
-  'Significado explícito o implícito',
-  'Algunas letras son abstractas',
-  'Casi ininteligibles a veces',
-  'Enfatizan forma y métrica',
-  'Simetría de la expresión',
+  "You're up, but you'll get down",
+  '',
+  "You're never running from this town",
+  '',
+  'And I think you said',
+  '',
+  'You ll never get anything better than this',
+  '',
+  "Cause you're going round in circles",
+  '',
+  "And everyone knows you're trouble",
+  '',
+  'Cause you read it in a big book',
+  '',
+  "And now you're giving me the look, look",
+  '',
+  'But just remember how we shook, shook',
+  '',
+  'And all the things we took, took',
+  '♪',
+  "This town's the oldest friend of mine",
+  '♪',
+  '♪',
+  'We get up and we get down',
+  '',
+  "We're always running 'round this town",
+  '',
+  'And to think they said',
+  '',
+  "We'd never make anything better than this",
+  '',
+  "'Cause we're always in small circles",
+  '',
+  "And everyone thinks we're trouble",
+
+  "We didn't read it in a big book",
+  '',
+  "(We didn't read it in a big book, big book, big book)",
+  '',
+  "And now we're giving you the look, look",
+  '',
+  '(Giving you the look, ah, giving you the look, ah-ah)',
+  '',
+  'But just remember how we shook, shook',
+  '',
+  '(Shook, shook, shook, shook)',
+  '',
+  'And all the things we took, took',
+  '',
+  '(Took, took, took, took)',
+  '',
+  '(This town, this town)',
+  '',
+  "This town's the oldest friend of mine",
 ]
 </script>

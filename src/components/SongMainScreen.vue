@@ -10,10 +10,15 @@ const { song_active_screen } = storeToRefs(store)
 </script>
 
 <template>
-  <div id="hero" class="w-full z-10 dark_dim" :class="isIdle ? 'is_idle h-[99vh]' : 'h-[50vh]'">
-    <SongMainScreenDefault v-show="song_active_screen === ' '" />
-    <SongMainScreenLyric v-show="song_active_screen === 'lyric'" />
-    <SongMainScreenGuitar v-show="song_active_screen === 'guitar'" />
-    <SongMainScreenVideoclip v-show="song_active_screen === 'videoclip'" />
+  <div
+    class="w-full h-screen fixed inset-0 z-10 dark_dim"
+    :class="isIdle ? 'is_idle h-[99vh]' : 'h-[50vh]'"
+  >
+    <Transition name="fade" mode="out-in">
+      <SongMainScreenDefault v-if="song_active_screen === ' '" />
+      <SongMainScreenLyric v-else-if="song_active_screen === 'lyric'" />
+      <SongMainScreenGuitar v-else-if="song_active_screen === 'guitar'" />
+      <SongMainScreenVideoclip v-else />
+    </Transition>
   </div>
 </template>

@@ -17,9 +17,6 @@ import { RouterView } from 'vue-router'
 
 import { useSpatialNavigation } from '@/composable/useNav'
 
-import NotSupported from './components/NotSupported.vue'
-import TheHeader from './components/TheHeader.vue'
-
 useSpatialNavigation()
 
 const isWidthSupported = useMediaQuery('(min-width: 1230px)')
