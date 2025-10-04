@@ -11,7 +11,8 @@ const { is_showing } = storeToRefs(store)
     <div class="flex w-full gap-3">
       <UButton
         size="lg"
-        :color="is_showing === 'todos' ? 'primary' : 'neutral'"
+        :variant="is_showing === 'todos' ? 'solid' : 'soft'"
+        color="neutral"
         @click="store.changeShowing('todos')"
         @focus="store.updateShowSelected(`Mi colección`)"
         @blur="store.resetShowSelected"
@@ -20,7 +21,8 @@ const { is_showing } = storeToRefs(store)
       </UButton>
       <UButton
         size="lg"
-        :color="is_showing === 'musica' ? 'primary' : 'neutral'"
+        :variant="is_showing === 'musica' ? 'solid' : 'soft'"
+        color="neutral"
         @click="store.changeShowing('musica')"
         @focus="store.updateShowSelected(`Música`)"
         @blur="store.resetShowSelected"
@@ -29,7 +31,8 @@ const { is_showing } = storeToRefs(store)
       >
       <UButton
         size="lg"
-        :color="is_showing === 'podcasts' ? 'primary' : 'neutral'"
+        :variant="is_showing === 'podcasts' ? 'solid' : 'soft'"
+        color="neutral"
         @click="store.changeShowing('podcasts')"
         @focus="store.updateShowSelected(`Podcasts`)"
         @blur="store.resetShowSelected"

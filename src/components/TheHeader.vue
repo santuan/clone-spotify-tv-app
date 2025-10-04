@@ -43,9 +43,10 @@ const items = [
       class="max-w-(--ui-container) mx-auto w-full flex items-center relative justify-center h-16"
     >
       <div class="absolute left-7 top-3">
-        <RouterLink to="/" v-if="!is_playing" class="flex outline-offset-4">
+        <RouterLink to="/" v-if="!is_playing" class="flex outline-offset-4 items-center">
           <LogosSpotify class="h-10 w-auto" />
-          TV
+          <span class="mr-2 text-xl text-primary-100 font-mono font-bold mt-0.5">TV</span>
+          <UBadge variant="soft" class="mt-1">Demo</UBadge>
         </RouterLink>
         <RouterLink
           v-else

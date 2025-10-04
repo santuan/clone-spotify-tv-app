@@ -11,7 +11,9 @@ export default defineConfig({
   plugins: [
     vue(),
     ui(
-      { colorMode: false }
+      {
+        colorMode: false,
+      }
     ),
     Icons({ /* options */ }),
     vueDevTools(),
