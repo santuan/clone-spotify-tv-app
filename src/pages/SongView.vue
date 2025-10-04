@@ -36,12 +36,15 @@ watch(
 <template>
   <div
     class="grid overflow-y-auto relative overflow-x-hidden min-h-screen pt-0 bg-gray-950 gap-3"
-    :class="song_dark ? 'dark-mode-active' : ''"
+    :class="[song_dark ? 'dark-mode-active' : '']"
   >
     <SongMainScreen />
     <div
-      class="relative bg-gradient-to-b duration-500 mt-80 from-transparent via-30% via-gray-950/90 to-gray-950 pb-6 pt-6 z-20"
-      :class="isIdle && song_active_screen === 'videoclip' ? 'opacity-20' : ''"
+      class="relative duration-500 mt-80 from-transparent pb-6 pt-6 z-20"
+      :class="[
+        isIdle && song_active_screen === 'videoclip' ? 'opacity-20' : '',
+        isIdle ? '' : 'from-transparent via-30% via-gray-950/90 to-gray-950 bg-gradient-to-b',
+      ]"
     >
       <SongControls />
       <SongRelated />
