@@ -82,3 +82,9 @@ const buttons = [
   "This town's the oldest friend of mine",
 ]
 </script>
+
+<style>
+.lyric-line:nth-child(3) {
+  opacity: 1;
+}
+</style>
