@@ -19,7 +19,7 @@ import { storeToRefs } from 'pinia'
 
 import { useCounterStore } from '@/stores/counter'
 const store = useCounterStore()
-const { is_playing, song_active_screen, guitar_mode, show_chords_videotutorial, song_dark } =
+const { is_playing, song_active_screen, guitar_mode, show_chords_videotutorial } =
   storeToRefs(store)
 import IconPause from '~icons/material-symbols/pause'
 import IconPlay from '~icons/material-symbols/play-arrow'
@@ -68,11 +68,11 @@ const handleProgressChange = (value: number | undefined) => {
 </script>
 
 <template>
-  <div>
+  <div class="dark_dim">
     <UContainer
-      class="flex gap-6 items-center dark_dim"
+      class="flex gap-6 items-center"
       :class="[
-        isIdle ? 'fixed bottom-8 bg-gray-950/80 backdrop-blur-xs z-50 p-3 left-0 right-0' : '',
+        isIdle ? 'fixed bottom-8 bg-gray-950/80 backdrop-blur-xs z-50 py-7 left-0 right-0' : '',
         song_active_screen === 'videoclip' && isIdle ? 'hidden' : '',
       ]"
     >
@@ -81,10 +81,7 @@ const handleProgressChange = (value: number | undefined) => {
         :class="isIdle ? 'ring-0! ring-offset-0! duration-100' : ''"
       ></button>
       <div class="flex justify-between w-full items-center">
-        <h1
-          :class="[song_active_screen === 'guitar' && isIdle ? 'text-2xl!' : '']"
-          class="text-4xl"
-        >
+        <h1 :class="[song_active_screen === 'guitar' && isIdle ? 'text-xl!' : '']" class="text-3xl">
           Nombre canción
         </h1>
         <div v-if="song_active_screen === 'guitar' && isIdle">Próximos acordes...</div>
@@ -101,7 +98,7 @@ const handleProgressChange = (value: number | undefined) => {
         >
       </div>
     </UContainer>
-    <UContainer v-if="!isIdle" class="py-6 dark_dim flex items-center gap-3">
+    <UContainer v-if="!isIdle" class="py-6 flex items-center gap-3">
       <button
         @click="is_playing = !is_playing"
         class="size-12 flex justify-center items-center bg-primary rounded-full focus-visible:outline-offset-8"
@@ -125,7 +122,7 @@ const handleProgressChange = (value: number | undefined) => {
         </div>
       </div>
     </UContainer>
-    <UContainer v-if="!isIdle" class="flex dark_dim justify-between items-center gap-4">
+    <UContainer v-if="!isIdle" class="flex justify-between items-center gap-4">
       <div class="flex gap-3">
         <button
           class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
@@ -188,7 +185,7 @@ const handleProgressChange = (value: number | undefined) => {
           v-if="song_active_screen !== 'guitar'"
           @click="store.showVideoclip()"
           color="neutral"
-          :variant="song_active_screen === 'videoclip' ? 'solid' : 'outline'"
+          variant="outline"
           size="xl"
           :icon="song_active_screen === 'videoclip' ? TdesignMusic1 : IconVideoClip"
           class="rounded-full focus-visible:scale-110"
@@ -243,9 +240,9 @@ const handleProgressChange = (value: number | undefined) => {
           </template>
         </USlideover>
         <UButton
-          @click="song_dark = !song_dark"
+          @click="store.showDark()"
           v-if="song_active_screen !== 'guitar'"
-          :variant="song_dark ? 'solid' : 'outline'"
+          :variant="song_active_screen === 'dark' ? 'solid' : 'outline'"
           color="neutral"
           size="xl"
           :icon="IconDarkmode"

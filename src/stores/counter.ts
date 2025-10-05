@@ -9,7 +9,6 @@ export const useCounterStore = defineStore('counter', () => {
   const is_playing = ref(false)
   const home_show_selected = ref('Artista 1')
   const song_active_screen = ref(' ')
-  const song_dark = ref(false)
   const show_chords_videotutorial = ref('partituras')
   const is_showing = ref('todos')
   const artist_music_active_tab = ref('popular')
@@ -98,6 +97,13 @@ export const useCounterStore = defineStore('counter', () => {
     song_active_screen.value = 'videoclip'
   }
 
+  const showDark = () => {
+    if (song_active_screen.value === 'dark') {
+      return song_active_screen.value = ' '
+    }
+    song_active_screen.value = 'dark'
+  }
+
   return {
     scrollContainer,
     guitar_mode,
@@ -105,20 +111,20 @@ export const useCounterStore = defineStore('counter', () => {
     is_playing,
     is_showing,
     song_active_screen,
-    song_dark,
     show_chords_videotutorial,
     home_show_selected,
     artist_music_active_tab,
+    activateGuitar,
+    changeShowing,
     pushWithQueryDefault,
     pushWithQueryAlbum,
     pushWithQueryArtist,
     pushWithQueryGuitarVideo,
     pushWithQueryGuitarChords,
     pushWithQueryVideoclip,
-    activateGuitar,
-    showVideoclip,
-    changeShowing,
     resetShowSelected,
+    showVideoclip,
+    showDark,
     updateShowSelected,
   }
 })

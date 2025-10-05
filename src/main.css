@@ -52,7 +52,7 @@ body:has(.dark-mode-active) {
 
   .main_header,
   .dark_dim {
-    opacity: 0.15;
+    opacity: 0.2;
 
     &:focus-within {
       opacity: 1 !important;

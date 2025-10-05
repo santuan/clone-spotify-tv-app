@@ -7,7 +7,7 @@ import { provide } from 'vue'
 import { useCounterStore } from '@/stores/counter'
 
 const store = useCounterStore()
-const { guitar_mode, is_playing, song_active_screen, song_dark } = storeToRefs(store)
+const { guitar_mode, is_playing, song_active_screen } = storeToRefs(store)
 
 const { idle } = useIdle(4000)
 
@@ -36,7 +36,7 @@ watch(
 <template>
   <div
     class="grid overflow-y-auto relative overflow-x-hidden min-h-screen pt-0 bg-gray-950 gap-3"
-    :class="[song_dark ? 'dark-mode-active' : '']"
+    :class="[song_active_screen === 'dark' ? 'dark-mode-active' : '']"
   >
     <SongMainScreen />
     <div
