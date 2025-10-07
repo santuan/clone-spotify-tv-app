@@ -7,8 +7,11 @@ const isIdle = inject('is_idle')
 const store = useCounterStore()
 const { song_active_screen, show_chords_videotutorial } = storeToRefs(store)
 
-function scrollToTop() {
+function scrollToTop(i?: string) {
   // Try scrolling the main scrollable parent
+  if (i) {
+    store.selectVideoSection(i)
+  }
   const scrollableParent = document.querySelector('main.min-h-screen') // Adjust selector
 
   if (scrollableParent) {
@@ -64,7 +67,7 @@ function scrollToTop() {
       <h2>Secciones de la canción</h2>
       <div class="grid grid-cols-4 gap-3 w-full">
         <button
-          @click="scrollToTop()"
+          @click="scrollToTop('Intro')"
           class="w-full h-36 bg-gray-800 grid grid-cols-2 overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] ring-transparent focus-visible:ring-offset-4 outline-none"
         >
           <div class="bg-gray-600 flex outline-0 justify-center items-center font-mono text-xs">
@@ -72,7 +75,7 @@ function scrollToTop() {
           </div>
         </button>
         <button
-          @click="scrollToTop()"
+          @click="scrollToTop('Estribillo')"
           class="w-full h-36 bg-gray-800 grid grid-cols-2 overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] ring-transparent focus-visible:ring-offset-4 outline-none"
         >
           <div class="bg-gray-600 flex outline-0 justify-center items-center font-mono text-xs">
@@ -80,7 +83,7 @@ function scrollToTop() {
           </div>
         </button>
         <button
-          @click="scrollToTop()"
+          @click="scrollToTop('Solo')"
           class="w-full h-36 bg-gray-800 grid grid-cols-2 overflow-hidden focus-within:ring-white focus-within:ring-1 focus-within:scale-[1.02] ring-transparent focus-visible:ring-offset-4 outline-none"
         >
           <div class="bg-gray-600 flex outline-0 justify-center items-center font-mono text-xs">

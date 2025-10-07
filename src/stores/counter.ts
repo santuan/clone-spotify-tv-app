@@ -12,6 +12,7 @@ export const useCounterStore = defineStore('counter', () => {
   const show_chords_videotutorial = ref('partituras')
   const is_showing = ref('todos')
   const artist_music_active_tab = ref('popular')
+  const progress = ref(0)
 
   function pushWithQueryAlbum() {
     router.push('/artist/album/name')
@@ -104,6 +105,15 @@ export const useCounterStore = defineStore('counter', () => {
     song_active_screen.value = 'dark'
   }
 
+
+  const selectedValueVideoSection = ref('Intro')
+
+  function selectVideoSection(i: string) {
+    progress.value = 0
+    selectedValueVideoSection.value = i
+    is_playing.value = true
+  }
+
   return {
     scrollContainer,
     guitar_mode,
@@ -114,6 +124,9 @@ export const useCounterStore = defineStore('counter', () => {
     show_chords_videotutorial,
     home_show_selected,
     artist_music_active_tab,
+    progress,
+    selectedValueVideoSection,
+    selectVideoSection,
     activateGuitar,
     changeShowing,
     pushWithQueryDefault,

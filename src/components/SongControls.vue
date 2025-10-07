@@ -10,7 +10,7 @@ import IconPlayerSkipForwardFilled from '~icons/tabler/player-skip-forward-fille
 import TdesignMusic1 from '~icons/tdesign/music-1'
 import IconRepeat from '~icons/uis/repeat'
 import { ref, onUnmounted, watch } from 'vue'
-const progress = ref(0)
+
 import { inject } from 'vue'
 const isIdle = inject('is_idle')
 let progressInterval: NodeJS.Timeout | null = null
@@ -19,10 +19,25 @@ import { storeToRefs } from 'pinia'
 
 import { useCounterStore } from '@/stores/counter'
 const store = useCounterStore()
-const { is_playing, song_active_screen, guitar_mode, show_chords_videotutorial } =
+const { is_playing, song_active_screen, guitar_mode, show_chords_videotutorial, progress } =
   storeToRefs(store)
 import IconPause from '~icons/material-symbols/pause'
 import IconPlay from '~icons/material-symbols/play-arrow'
+
+const value = ref([
+  {
+    label: 'Intro',
+    time: 25,
+  },
+  {
+    label: 'Estribillo',
+    time: 50,
+  },
+  {
+    label: 'Solo',
+    time: 25,
+  },
+])
 
 // Simulate song progress
 const startProgress = () => {
@@ -70,9 +85,9 @@ const handleProgressChange = (value: number | undefined) => {
 <template>
   <div class="dark_dim">
     <UContainer
-      class="flex gap-6 items-center"
+      class="flex gap-6 items-center [transition:all_1.2s,background-color_0s] py-7"
       :class="[
-        isIdle ? 'fixed bottom-8 bg-gray-950/80 backdrop-blur-xs z-50 py-7 left-0 right-0' : '',
+        isIdle ? 'fixed bottom-8 bg-gray-950/80 backdrop-blur-xs z-50  left-0 right-0' : '',
         song_active_screen === 'videoclip' && isIdle ? 'hidden' : '',
       ]"
     >
@@ -98,7 +113,7 @@ const handleProgressChange = (value: number | undefined) => {
         >
       </div>
     </UContainer>
-    <UContainer v-if="!isIdle" class="py-6 flex items-center gap-3">
+    <UContainer v-if="!isIdle" class="pb-6 flex items-center gap-3">
       <button
         @click="is_playing = !is_playing"
         class="size-12 flex justify-center items-center bg-primary rounded-full focus-visible:outline-offset-8"
@@ -107,23 +122,78 @@ const handleProgressChange = (value: number | undefined) => {
         <IconPlay v-else class="size-9 text-gray-900" />
       </button>
       <div class="w-full grid gap-3 mt-3">
-        <USlider
-          :model-value="progress"
-          @update:model-value="handleProgressChange"
-          :ui="{
-            track: 'h-1',
-            thumb:
-              'focus-visible:ring-2 focus-visible:ring-offset-0  focus-visible:bg-white focus-visible:ring-white',
-          }"
-        />
-        <div class="flex justify-between items-center w-full">
-          <div class="h-2 w-10 bg-gray-700"></div>
-          <div class="h-2 w-10 bg-gray-700"></div>
+        <div
+          v-if="song_active_screen === 'guitar' && show_chords_videotutorial === 'videotutorial'"
+          class="w-full flex gap-1 mt-1"
+        >
+          <div
+            v-for="i in value"
+            :key="i.label"
+            class="flex w-full flex-col gap-1 focus-within:outline-offset-2 focus-within:opacity-100 opacity-90 focus-within:outline-2 focus-within:outline-primary p-1 focus-within:z-50"
+            :style="'width:' + i.time + '%'"
+          >
+            <button
+              class="h-1 min-w-24 2 w-full flex justify-start items-center outline-0"
+              :class="i.label === store.selectedValueVideoSection ? 'bg-gray-500' : 'bg-gray-700'"
+              @click="store.selectVideoSection(i.label)"
+            >
+              <div
+                v-show="i.label === store.selectedValueVideoSection"
+                class="bg-primary h-1"
+                :style="'width: ' + progress + '%'"
+              ></div>
+            </button>
+            <span class="relative text-left w-full text-xs flex justify-between items-center">
+              {{ i.label }}
+              <span class="relative bg-gray-600 h-2 w-12"></span>
+            </span>
+          </div>
+        </div>
+        <div v-else class="grid gap-2">
+          <USlider
+            :model-value="progress"
+            @update:model-value="handleProgressChange"
+            :ui="{
+              track: 'h-1',
+              thumb:
+                'focus-visible:ring-2 focus-visible:ring-offset-0  focus-visible:bg-white focus-visible:ring-white',
+            }"
+          />
+
+          <div class="flex justify-between items-center w-full">
+            <div class="h-2 w-10 bg-gray-700"></div>
+            <div class="h-2 w-10 bg-gray-700"></div>
+          </div>
         </div>
       </div>
     </UContainer>
     <UContainer v-if="!isIdle" class="flex justify-between items-center gap-4">
-      <div class="flex gap-3">
+      <div
+        v-if="song_active_screen === 'guitar' && show_chords_videotutorial === 'videotutorial'"
+        class="min-w-52 flex gap-3"
+      >
+        <button
+          class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
+        >
+          <!-- <IconPlayerSkipBackFilled class="size-4" /> -->
+        </button>
+        <button
+          class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
+        >
+          <!-- <IconPlayerSkipForwardFilled class="size-4" /> -->
+        </button>
+        <button
+          class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
+        >
+          <!-- <IconShuffle class="size-4" /> -->
+        </button>
+        <button
+          class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
+        >
+          <!-- <IconRepeat class="size-4" /> -->
+        </button>
+      </div>
+      <div class="flex gap-3 min-w-52" v-else>
         <button
           class="size-10 bg-gray-600 flex justify-center items-center rounded-full focus-visible:outline-offset-8"
         >
