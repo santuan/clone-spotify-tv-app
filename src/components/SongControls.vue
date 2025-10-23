@@ -237,21 +237,6 @@ const handleProgressChange = (value: number | undefined) => {
       </div>
       <div class="flex gap-4">
         <UButton
-          v-if="guitar_mode"
-          @click="store.activateGuitar()"
-          color="neutral"
-          :variant="song_active_screen === 'guitar' ? 'solid' : 'outline'"
-          size="xl"
-          :icon="IconGuitarPick"
-          :ui="{
-            leadingIcon: 'size-5',
-          }"
-          class="rounded-full focus-visible:scale-110"
-        >
-          <span v-if="song_active_screen === 'guitar'">Salir</span>
-          Modo guitarra</UButton
-        >
-        <UButton
           v-if="song_active_screen !== 'guitar'"
           @click="store.showVideoclip()"
           color="neutral"
@@ -318,6 +303,21 @@ const handleProgressChange = (value: number | undefined) => {
           :icon="IconDarkmode"
           class="rounded-full focus-visible:scale-110"
           >Modo oscuro</UButton
+        >
+        <UButton
+          v-if="guitar_mode"
+          @click="store.activateGuitar()"
+          color="neutral"
+          :variant="song_active_screen === 'guitar' ? 'solid' : 'outline'"
+          size="xl"
+          :icon="IconGuitarPick"
+          :ui="{
+            leadingIcon: 'size-5',
+          }"
+          class="rounded-full focus-visible:scale-110"
+        >
+          <span v-if="song_active_screen === 'guitar'">Salir</span>
+          Modo guitarra</UButton
         >
       </div>
     </UContainer>

@@ -40,10 +40,10 @@ watch(
   >
     <SongMainScreen />
     <div
-      class="relative duration-500 mt-80 from-transparent pb-6 pt-6 z-20"
+      class="relative duration-500 mt-64 from-transparent pb-6 pt-6 z-20"
       :class="[
         isIdle && song_active_screen === 'videoclip' ? 'opacity-20' : '',
-        isIdle ? '' : 'from-transparent via-30% via-gray-950/90 to-gray-950 bg-gradient-to-b',
+        isIdle ? '' : 'from-transparent via-30% via-gray-950/90 to-gray-950 bg-linear-to-b',
       ]"
     >
       <SongControls />

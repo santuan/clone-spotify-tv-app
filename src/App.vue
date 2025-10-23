@@ -1,5 +1,5 @@
 <template>
-  <UApp>
+  <UApp :toaster="toaster">
     <NotSupported v-if="!isSizeSupported" />
     <template v-else>
       <TheHeader />
@@ -14,9 +14,12 @@
 import { useMediaQuery } from '@vueuse/core'
 import { computed } from 'vue'
 import { RouterView } from 'vue-router'
-
 import { useSpatialNavigation } from '@/composable/useNav'
+import { useCounterStore } from '@/stores/counter'
 
+const toaster = { position: 'top-right' as const, expand: false }
+const store = useCounterStore()
+store.ToastIntro()
 useSpatialNavigation()
 
 const isWidthSupported = useMediaQuery('(min-width: 1230px)')

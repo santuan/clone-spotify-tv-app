@@ -14,6 +14,28 @@ export const useCounterStore = defineStore('counter', () => {
   const artist_music_active_tab = ref('popular')
   const progress = ref(0)
 
+  const toast = useToast()
+
+  function ToastDarkMode() {
+    toast.add({
+      title: 'Modo oscuro activado',
+      description: `Vuelva a hacer click para desactivarlo`,
+      icon: 'i-lucide-moon',
+      color: "neutral",
+      progress: false
+    })
+  }
+
+  function ToastIntro() {
+    toast.add({
+      title: 'Navegación',
+      description: `Esta aplicación puede navegarse utilizando las flechas del teclado`,
+      color: "neutral",
+      icon: 'i-bx-bxs-joystick-button',
+      progress: true
+    })
+  }
+
   function pushWithQueryAlbum() {
     router.push('/artist/album/name')
   }
@@ -85,7 +107,23 @@ export const useCounterStore = defineStore('counter', () => {
   const activateGuitar = () => {
     if (song_active_screen.value === 'guitar') {
       song_active_screen.value = ' '
+      toast.add({
+        title: 'Modo guitarra desactivado',
+        description: `Vuelva a hacer click para activarlo`,
+        icon: 'i-tabler-guitar-pick',
+        color: "neutral",
+        progress: false,
+        close: false
+      })
     } else {
+      toast.add({
+        title: 'Modo guitarra activado',
+        description: `Vuelva a hacer click para desactivarlo`,
+        icon: 'i-tabler-guitar-pick',
+        color: "neutral",
+        progress: false,
+        close: false
+      })
       song_active_screen.value = 'guitar'
       show_chords_videotutorial.value = 'videotutorial'
     }
@@ -99,6 +137,7 @@ export const useCounterStore = defineStore('counter', () => {
   }
 
   const showDark = () => {
+    ToastDarkMode()
     if (song_active_screen.value === 'dark') {
       return song_active_screen.value = ' '
     }
@@ -128,6 +167,7 @@ export const useCounterStore = defineStore('counter', () => {
     selectedValueVideoSection,
     selectVideoSection,
     activateGuitar,
+    ToastIntro,
     changeShowing,
     pushWithQueryDefault,
     pushWithQueryAlbum,

@@ -32,108 +32,108 @@ const { show_chords_videotutorial } = storeToRefs(store)
         v-else
         class="flex justify-start h-full items-center pt-24 pb-80 flex-col gap-8 bg-blue-950 w-full overflow-y-auto max-h-screen"
       >
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="mr-24 text-primary">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> You're up, but you'll get down </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="">FA#</a>
           </span>
           <span class="lyric-line">And I think you said</span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
-            <a class="mr-24">LAm</a>
-            <a>SOL</a>
+            <a class="mr-44">LAm</a>
+            <a class="pl-2">SOL</a>
           </span>
           <span class="lyric-line"> You ll never get anything better than this </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> Cause you're going round in circle </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
-            <a class="mr-24 text-primary">LAm</a>
+            <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> You're up, but you'll get down </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="">FA#</a>
           </span>
           <span class="lyric-line">And I think you said</span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> You ll never get anything better than this </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> Cause you're going round in circle </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
-            <a class="mr-24 text-primary">LAm</a>
+            <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> You're up, but you'll get down </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="">FA#</a>
           </span>
           <span class="lyric-line">And I think you said</span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> You ll never get anything better than this </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> Cause you're going round in circle </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
-            <a class="mr-24 text-primary">LAm</a>
+            <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> You're up, but you'll get down </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="">FA#</a>
           </span>
           <span class="lyric-line">And I think you said</span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="mr-24">LAm</a>
             <a>SOL</a>
           </span>
           <span class="lyric-line"> You ll never get anything better than this </span>
         </div>
-        <div class="grid gap-2 w-full max-w-3xl mx-auto">
+        <div class="grid gap-2 w-full max-w-2xl mx-auto">
           <span class="lyric-line">
             <a class="mr-24">LAm</a>
             <a>SOL</a>
